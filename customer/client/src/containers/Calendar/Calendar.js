@@ -1,15 +1,26 @@
 import React, {Component} from "react";
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {schedules} from '../../actions/index';
 import FullCalendar from 'fullcalendar-reactwrapper';
 import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css'
 
-export default class Calendar extends Component {
+class Calendar extends Component {
     state={
-        events: [{
-                    id: 999,
-                    title: 'Sample Event',
-                    start: '2018-08-09T16:00:00'
-        }]
+        events: []
     }
+
+    componentDidMount = () => {
+        this.events();
+    }
+    events = () => {
+        let events = this.props.events.map( event => ({
+            title: `${event.league}: ${event.awayTeam} vs. ${event.homeTeam}`,
+            start: event.date
+            }));
+        this.setState({events});
+    }
+
     render() {
         return(
             <div 
@@ -30,3 +41,15 @@ export default class Calendar extends Component {
     }
 
 }
+
+function mapStateToProps(state) {
+    return {
+        events: state.events
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({schedules: schedules}, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Calendar);
