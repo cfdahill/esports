@@ -3,82 +3,93 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {schedules} from '../../actions/index';
 import FullCalendar from 'fullcalendar-reactwrapper';
-import {ToggleButtonGroup, ToggleButton} from "react-bootstrap";
-import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css'
+import moment from 'moment';
+import {ToggleButtonGroup, ToggleButton, Button, Modal} from "react-bootstrap";
+import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
+
+//calendar is pretty much done, will need to come back to update info being passed to modal
 
 class Calendar extends Component {
     state={
         events: [],
-        hideSchedule: [],
+        hideEvents: [],
         value: [
-          { number: 0, game: "HS", name: "HearthStone", checked: true },
-          {number: 1, game: "HotS", name: "Heroes of the Storm", checked: true },
-          {number: 2, game: "OW", name: "OverWatch", checked: true },
-          {number: 3, game: "SC", name: "StarCraft II", checked: true },
-          {number: 4, game: "WoW", name: "World of WarCraft", checked: true}
-        ]
+          { number: 0, game: "hs", name: "HearthStone", checked: true },
+          { number: 1, game: "hots", name: "Heroes of the Storm", checked: true },
+          { number: 2, game: "ow", name: "OverWatch", checked: true },
+          { number: 3, game: "sc", name: "StarCraft II", checked: true },
+          { number: 4, game: "wow", name: "World of WarCraft", checked: true}
+        ],
+        show: false,
+        modalEvent: {}
     }
 
     componentDidMount = () => {
         this.events();
     }
 
+    //Create array of events for calendar based on the data from the reducers
     events = () => {
         let events = this.props.events.map( event => ({
             title: `${event.league}: ${event.awayTeam} vs. ${event.homeTeam}`,
-            start: event.date
+            start: event.date,
+            game: event.game
             }));
         this.setState({events});
     }
 
-    toggleEvents = (e) => {
-      let value = this.state.value;
-      if(value[e]){
-        value[e] = false;
-      // }else{
-      //   value[e] = true;
-      }
-      console.log(value);
-      this.setState({value});
-      // let events = this.state.events;
-      // let hideSchedule = this.state.hideSchedule;
-      console.log(e);
-    }
-
+    //Create buttons to toggle the visibility of events on/off
     renderButton = (game) => {
-      console.log(game);
       const i = game.number;
+      let events = this.state.events;
+      let hideEvents = this.state.hideEvents;
       return(
         <ToggleButton value={game.game} key={game.game} onChange={ () => {
+          //For whatever reason, if this is in a different method it creates an infinat loop.
           if(game.checked){
             game.checked = false;
+            hideEvents = hideEvents.concat(events.filter(event => (event.game === game.game)));
+            events = events.filter(event => (event.game !== game.game));
           }else{
             game.checked = true;
+            events = events.concat(hideEvents.filter(event => (event.game === game.game)));
+            hideEvents = hideEvents.filter(event => (event.game !== game.game));
           }
           let value = this.state.value;
-          value[i].checked = game.checked
-          console.log(value, value[i]);
-          this.setState({value});
-          console.log("clicked");
+          value[i].checked = game.checked;
+          this.setState({value, events, hideEvents});
     }}>{game.name}</ToggleButton>
   )}
+
+  //hide Modal
+  handleClose = () => {
+    this.setState({ show: false });
+  }
+
+  //show Modal
+  handleShow = (e) => {
+    console.log(e);
+    let modalEvent = {
+      title: e.title,
+      date: moment(e.start._i).format('MMMM D, YYYY'),
+      time: moment(e.start._i).format('h:mm a'),
+      game: e.game
+    }
+    this.setState({ modalEvent, show: true });
+  }
 
     render() {
         return(
           <div>
             <div id="checkboxes">
               <ToggleButtonGroup type="checkbox">
-              {this.state.value.map(game => (this.renderButton(game)))}
-                {/* <ToggleButton value={"HS"} onChange={this.test}>HearthStone</ToggleButton> */}
-                {/* <ToggleButton value={"HotS"} onChange={this.toggleEvents("HotS")}>Heroes of the Storm</ToggleButton>
-                <ToggleButton value={"OW"} onClick={this.toggleEvents("OW")}>OverWatch</ToggleButton>
-                <ToggleButton value={"SC"} onChange={this.toggleEvents("SC")}>StarCraft II</ToggleButton>
-                <ToggleButton value={"WoW"} onClick={this.toggleEvents("WoW")}>World of Warcraft</ToggleButton> */}
+                {this.state.value.map(game => (this.renderButton(game)))}
               </ToggleButtonGroup>
             </div>
             <div 
                 id="calContainer"
                 style={{height: 600, width: 800}}    
+                /*Style of height and width are needed here but don't need to be numbers shown, might be able to move to css file*/
             >
                 <FullCalendar
                     id="calendarID"
@@ -88,8 +99,22 @@ class Calendar extends Component {
                         right: 'month,basicWeek,basicDay,list'
                     }}
                     events = {this.state.events}
+                    eventClick = {e => this.handleShow(e)}
                 />
             </div> 
+            <Modal show={this.state.show} onHide={this.handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>{this.state.modalEvent.title}</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                Date: {this.state.modalEvent.date} 
+                <br></br>
+                Time: {this.state.modalEvent.time}
+              </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={this.handleClose}>Close</Button>
+              </Modal.Footer>
+        </Modal>
           </div>
         )
     }
