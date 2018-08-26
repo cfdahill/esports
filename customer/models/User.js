@@ -18,8 +18,10 @@ let UserSchema = new Schema ({
     },
     picks: [{
         date: Date,
-        team1: String,
-        team2: String,
+        game: {
+          type: Schema.Types.ObjectId,
+          ref: "Game"
+        },
         pick: String,
         correct: Boolean
     }],
@@ -41,6 +43,6 @@ module.exports = User;
 /*What I want to happen:
 Password
 Username
-Picks: array of objects: [{date and time of game, team1, team2, pick, correct}, repeat]
+Picks: array of objects: [{date and time of game, pick, correct}, repeat]
 Points: object {lifetime total, total spent} can use these to find out current total
 Rewards: array of objects: [{date purchased, item purchased, cost}] */

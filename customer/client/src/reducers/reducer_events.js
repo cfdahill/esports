@@ -1,3 +1,5 @@
+//this file is sample data used for testing while not connected to a db
+
 export default function() {
     return[
         {

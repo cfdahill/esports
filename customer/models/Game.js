@@ -11,31 +11,34 @@ const GameSchema = new Schema({
         type: String,
         required: true
     },
-    team1: {
+    game: {
+      type: String,
+      required: true
+    },
+    series: {
+      type: Number,
+    },
+    homeTeam: {
         type: String,
         required: true
     },
-    team2: {
+    homeScore: {
+      type: Number,
+      default: 0
+    },
+    awayTeam: {
         type: String,
         required: true
+    },
+    awayScore: {
+      type: Number,
+      default: 0
     },
     date: {
         type: Date,
         required: true
-    },
-    score: [{
-        team1Score: {
-            type: Number,
-            default: 0
-        }
-    }, {
-        team2Score: {
-            type: Number,
-            default: 0
-        }
-    }],
-    winner: String
-});
+    }
+  });
 
 const Game = mongoose.model("Game", GameSchema);
 
