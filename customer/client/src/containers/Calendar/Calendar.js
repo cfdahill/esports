@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {schedules} from '../../actions/index';
+import {fetchSchedule} from '../../actions';
 import FullCalendar from 'fullcalendar-reactwrapper';
 import moment from 'moment';
 import {ToggleButtonGroup, ToggleButton, Button, Modal} from "react-bootstrap";
@@ -30,12 +30,13 @@ class Calendar extends Component {
 
     //Create array of events for calendar based on the data from the reducers
     events = () => {
-        let events = this.props.events.map( event => ({
-            title: `${event.league}: ${event.awayTeam} vs. ${event.homeTeam}`,
-            start: event.date,
-            game: event.game
-            }));
-        this.setState({events});
+      console.log(this.state, this.props);
+        // let events = this.props.events.map( event => ({
+        //     title: `${event.league}: ${event.awayTeam} vs. ${event.homeTeam}`,
+        //     start: event.date,
+        //     game: event.game
+        //     }));
+        // this.setState({events});
     }
 
     //Create buttons to toggle the visibility of events on/off
@@ -121,14 +122,12 @@ class Calendar extends Component {
 
 }
 
-function mapStateToProps(state) {
-    return {
-        events: state.events
-    }
+function mapStateToProps(events) {
+    return {events};
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({schedules: schedules}, dispatch)
+    return bindActionCreators({fetchSchedule}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Calendar);

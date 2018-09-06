@@ -9,7 +9,6 @@ const PORT = process.env.PORT || 3001;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // Serve up static assets
-app.use(express.static("client/build"));
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -18,12 +17,24 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/esportdb"
+  process.env.MONGODB_URI || "mongodb://localhost:27017/esportdb", {useNewUrlParser: true}
 );
 
-app.get("/api/test", function(req, res) {
-  res.send("Hello");
-})
+//The below code is to console log the db data to verify that it is properly connecting to the db
+// mongoose.connection.on('open', function(err, doc){
+//   console.log("connection established");
+//   mongoose.connection.db.collection('games', function(err, docs) {
+//     // Check for error
+//     if(err) return console.log(err);
+//     // Walk through the cursor
+//     docs.find().each(function(err, doc) {
+//         // Check for error
+//         if(err) return console.err(err);
+//         // Log document
+//         console.log(doc);
+//     });
+//   });
+// });
 
 app.listen(PORT, function() {
     console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);

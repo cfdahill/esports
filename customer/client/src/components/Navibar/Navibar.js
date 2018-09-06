@@ -16,7 +16,7 @@ export default class Navibar extends Component {
           <Navbar.Collapse>
             <Nav>
             <NavDropdown eventKey={0} title="Picks" id="basic-nav-dropdown">
-                <MenuItem eventKey={0.1}>Picks</MenuItem>
+                <MenuItem eventKey={0.1} href="/picks">Picks</MenuItem>
                 <MenuItem eventKey={0.2}>Store</MenuItem>
                 <MenuItem eventKey={0.3}>Top Scores</MenuItem>
                 <MenuItem eventKey={0.4}>Account</MenuItem>
@@ -54,7 +54,7 @@ export default class Navibar extends Component {
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
-        </Navbar>;
+        </Navbar>
       </div>
     )
   }
