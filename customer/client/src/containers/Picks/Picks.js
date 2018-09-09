@@ -84,7 +84,7 @@ class Picks extends Component {
       <Well key={event.id}>
             <Grid>
             <Row>
-              <Col xs={6}>{event.league} LOGO</Col>
+              <Col xs={3}>{event.league} LOGO</Col>
               <Col xs={6}>
                 <Row>
                   <h2>{event.awayTeam} vs {event.homeTeam}</h2>
@@ -102,6 +102,7 @@ class Picks extends Component {
                   {time}, {date}
                 </Row>
               </Col>
+              <Col xs={3}>Watch URL</Col>
             </Row>
             </Grid>
           </Well>

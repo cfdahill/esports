@@ -25,18 +25,24 @@ class Calendar extends Component {
     }
 
     componentDidMount = () => {
-        this.events();
+        this.props.fetchSchedule()
+          .then(result => {
+            // console.log(result.payload.data);
+            // console.log(this.props);
+            // console.log(this.state);
+            this.events();
+          })
     }
 
     //Create array of events for calendar based on the data from the reducers
     events = () => {
-      console.log(this.state, this.props);
-        // let events = this.props.events.map( event => ({
-        //     title: `${event.league}: ${event.awayTeam} vs. ${event.homeTeam}`,
-        //     start: event.date,
-        //     game: event.game
-        //     }));
-        // this.setState({events});
+      console.log(this.props);
+        let events = this.props.events.map( event => ({
+            title: `${event.league}: ${event.awayTeam} vs. ${event.homeTeam}`,
+            start: event.date,
+            game: event.game
+            }));
+        this.setState({events});
     }
 
     //Create buttons to toggle the visibility of events on/off
@@ -46,7 +52,7 @@ class Calendar extends Component {
       let hideEvents = this.state.hideEvents;
       return(
         <ToggleButton value={game.game} key={game.game} onChange={ () => {
-          //For whatever reason, if this is in a different method it creates an infinat loop.
+          //For whatever reason, if this is in a different method it creates an infinate loop.
           if(game.checked){
             game.checked = false;
             hideEvents = hideEvents.concat(events.filter(event => (event.game === game.game)));
@@ -122,8 +128,8 @@ class Calendar extends Component {
 
 }
 
-function mapStateToProps(events) {
-    return {events};
+function mapStateToProps(state) {
+    return {events: state.events};
 }
 
 function mapDispatchToProps(dispatch) {

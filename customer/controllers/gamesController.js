@@ -6,7 +6,6 @@ module.exports = {
       .find(req.query)
       .sort({date: -1})
       .then(dbModel => {
-        console.log(res.json(dbModel));
         return(res.json(dbModel));
       })
       .catch(err => res.status(422).json(err));
