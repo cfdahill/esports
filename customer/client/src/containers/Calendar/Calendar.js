@@ -31,7 +31,7 @@ class Calendar extends Component {
             // console.log(this.props);
             // console.log(this.state);
             this.events();
-          })
+          });
     }
 
     //Create array of events for calendar based on the data from the reducers
