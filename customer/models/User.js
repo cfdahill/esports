@@ -7,21 +7,14 @@ const Schema = mongoose.Schema;
 
 let UserSchema = new Schema ({
 
-    password: {
-        type: String,
-        required: true,
-    },
-    username: {
-        type: String,
+    password: {type: String, required: true},
+    username: {type: String,
         required: true,
         unique: "This name is already taken, please try a different name"
     },
     picks: [{
         date: Date,
-        game: {
-          type: Schema.Types.ObjectId,
-          ref: "Game"
-        },
+        game: {type: Schema.Types.ObjectId, ref: "Game"},
         pick: String,
         correct: Boolean
     }],

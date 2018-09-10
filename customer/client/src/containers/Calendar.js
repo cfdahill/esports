@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fetchSchedule} from '../../actions';
+import {fetchSchedule} from '../actions';
 import FullCalendar from 'fullcalendar-reactwrapper';
 import moment from 'moment';
 import {ToggleButtonGroup, ToggleButton, Button, Modal} from "react-bootstrap";

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Navbar, Nav, NavDropdown, MenuItem} from "react-bootstrap";
 
-export default class Navibar extends Component {
+export default class Navigation extends Component {
 
   render() {
     return(
@@ -9,7 +9,7 @@ export default class Navibar extends Component {
         <Navbar inverse collapseOnSelect>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="#home">BlizzPicks</a>
+              <a href="/">BlizzPicks</a>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
@@ -60,4 +60,3 @@ export default class Navibar extends Component {
   }
 
 }
-

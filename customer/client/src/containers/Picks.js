@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {fetchSchedule} from '../../actions';
+import {fetchSchedule} from '../actions';
 import _ from 'lodash';
 import moment from 'moment';
 import {Well, Grid, Row, Col, Button} from "react-bootstrap";

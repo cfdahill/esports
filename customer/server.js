@@ -23,7 +23,7 @@ mongoose.connect(
 //The below code is to console log the db data to verify that it is properly connecting to the db
 // mongoose.connection.on('open', function(err, doc){
 //   console.log("connection established");
-//   mongoose.connection.db.collection('games', function(err, docs) {
+//   mongoose.connection.db.collection('users', function(err, docs) {
 //     // Check for error
 //     if(err) return console.log(err);
 //     // Walk through the cursor
