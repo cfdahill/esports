@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 export default class Header extends Component {
 //once logging in works, header will detect if logged in.  If logged in, show name, points and logout button; else show Guest, login button
@@ -6,7 +7,7 @@ export default class Header extends Component {
     return(
       <header>
         Name, points
-        <button>Login</button>
+        <Link to="/login"><button>Login</button></Link>
       </header>
     )
   }

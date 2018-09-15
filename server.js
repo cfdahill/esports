@@ -3,6 +3,12 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
+const path = require('path');
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const passport = require('./mongo-connector/passport');
+
 const PORT = process.env.PORT || 3001;
 
 // Configure body parser for AJAX requests
