@@ -6,28 +6,45 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 let UserSchema = new Schema ({
-
+  local: {
     password: {type: String, required: true},
     username: {type: String,
         required: true,
         unique: "This name is already taken, please try a different name"
     },
+    points: {
+      lifetime: Number,
+      spent: Number 
+    }
+  },
     picks: [{
         date: Date,
         game: {type: Schema.Types.ObjectId, ref: "Game"},
         pick: String,
         correct: Boolean
     }],
-    points: {
-        lifetime: Number,
-        spent: Number 
-    },
     rewards: [{
         date: Date,
         item: String,
         cost: Number
     }]
 });
+
+//calPal has this twice with the only difference being the .local. on line 36
+UserSchema.methods = {
+  checkPassword: inputPassword => (bcrypt.compareSync(inputPassword, this.local.password)),
+	hashPassword: plainTextPassword => (bcrypt.hashSync(plainTextPassword, 10)) 
+}
+
+UserSchema.pre('save', callback => {
+  if (!this.local.password) {
+    console.log('NO PASSWORD PROVIDED');
+    callback();
+  } else {
+    this.local.password = this.hashPassword(this.local.password);
+    callback();
+  }
+})
 
 const User = mongoose.model("User", UserSchema);
 

@@ -1,6 +1,5 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
 const app = express();
 const path = require('path');
 const morgan = require('morgan');
@@ -11,7 +10,6 @@ const MongoStore = require('connect-mongo')(session);
 const routes = require("./routes/index");
 const passport = require('./mongo-connector/passport');
 const dbConnection = require("./models/mongo");
-const User = require('./models/User');
 
 const PORT = process.env.PORT || 3001;
 //look at dbConnection and app.use(session) part of calPal
