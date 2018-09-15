@@ -1,46 +1,57 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const routes = require("./routes");
 const app = express();
 const path = require('path');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
+const routes = require("./routes/index");
 const passport = require('./mongo-connector/passport');
+const dbConnection = require("./models/mongo");
+const User = require('./models/User');
 
 const PORT = process.env.PORT || 3001;
+//look at dbConnection and app.use(session) part of calPal
+
+app.use(morgan('dev'));
+app.use(cookieParser());
 
 // Configure body parser for AJAX requests
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-// Serve up static assets
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
+//Establish individual user
+app.use(
+  session({
+    secret: 'blizzpick_passphrase',
+    store: new MongoStore({mongooseConnection: dbConnection}),
+    resave: false,
+    saveUninitialized: false
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(routes);
 
-mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost:27017/esportdb", {useNewUrlParser: true}
-);
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.use('/static', express.static(path.join(__dirname, './client/build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './client/build'));
+  });
+}
 
-//The below code is to console log the db data to verify that it is properly connecting to the db
-// mongoose.connection.on('open', function(err, doc){
-//   console.log("connection established");
-//   mongoose.connection.db.collection('users', function(err, docs) {
-//     // Check for error
-//     if(err) return console.log(err);
-//     // Walk through the cursor
-//     docs.find().each(function(err, doc) {
-//         // Check for error
-//         if(err) return console.err(err);
-//         // Log document
-//         console.log(doc);
-//     });
-//   });
-// });
+app.use('/auth', require('./routes/auth'));
+
+app.use((err, req, res, next) => {
+  console.log(err.stack);
+  res.status(500);
+});
 
 app.listen(PORT, function() {
     console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
