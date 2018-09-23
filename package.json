@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mmarovich/MERN-starter.git"
+    "url": "https://github.com/cfdahill/esports"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mmarovich/MERN-starter/issues"
+    "url": "https://github.com/cfdahill/esports"
   },
-  "homepage": "https://github.com/mmarovich/MERN-starter#readme",
+  "homepage": "https://github.com/cfdahill/esports#readme",
   "devDependencies": {
     "concurrently": "^3.5.0",
     "nodemon": "^1.11.0"
@@ -30,6 +30,7 @@
   "dependencies": {
     "axios": "^0.16.2",
     "bcrypt": "^3.0.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "connect-mongo": "^2.0.1",
     "cookie-parser": "^1.4.3",

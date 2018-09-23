@@ -44,9 +44,9 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.use('/auth', require('./routes/auth'));
+// app.use('/auth', require('./routes/auth'));
 
-app.use((err, req, res, next) => {
+app.use((err, req, res, cb) => {
   console.log(err.stack);
   res.status(500);
 });

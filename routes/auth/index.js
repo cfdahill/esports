@@ -19,9 +19,7 @@ router.get('/login', function(req, res) {
     res.send();
 });
 
-router.post(
-	'/login',
-	function(req, res, next) {
+router.post('/login',	function(req, res, next) {
 		console.log(req.body);
 		console.log('================');
 		next();
@@ -33,9 +31,9 @@ router.post(
 		console.log('POST to /login');
 		const user = JSON.parse(JSON.stringify(req.user));
 		const cleanUser = Object.assign({}, user);
-		if (cleanUser.local) {
-			console.log(`Deleting ${cleanUser.local.password}`);
-			delete cleanUser.local.password;
+		if (cleanUser) {
+			console.log(`Deleting ${cleanUser.password}`);
+			delete cleanUser.password;
 		}
 		res.json({ user: cleanUser });
 	}
@@ -52,21 +50,22 @@ router.post('/logout', (req, res) => {
 });
 
 router.post('/signup', (req, res) => {
-	const { username, password } = req.body;
-	console.log(req.body);
-	// ADD VALIDATION
-	User.findOne({ 'local.username': username }, (error, userMatch) => {
+  const { username, password } = req.body;
+	User.findOne({ 'username': username }, (error, userMatch) => {
 		if (userMatch) {
 			return res.json({
 				msg: ("Sorry, already a user with the username: " + username)
 			});
-		}
+    }
 		const newUser = new User({
-			'local.username': username,
-			'local.password': password
-		});
+			'username': username,
+			'password': password
+    });
 		newUser.save((err, savedUser) => {
-			if (err) return res.json(err);
+			if (err) {
+        console.log(err);
+        return res.json(err);
+      };
 			return res.json(savedUser);
 		});
 	});
