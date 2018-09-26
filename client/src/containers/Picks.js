@@ -11,6 +11,7 @@ class Picks extends Component {
 
   state = {
     id: localStorage.getItem("_id"),
+    picks: []
   }
  
   componentDidMount = () => {
@@ -19,16 +20,30 @@ class Picks extends Component {
   }
 
   savePick = (team, game) => {
-    console.log(`You picked ${team}, ${game}`);
-    console.log(this.props.picks.find(pick => pick.game === game._id));
-    const picks = {
+    /*give buttons names gameID+away or home
+      use getElementByName to change the class
+      use if statement to get the other team to change class as well
+      might not need to do, get updating done first
+
+      saving picks:
+        still need to do:
+      update db
+    */
+
+    console.log(`game: `, game);
+    const propPicks = this.props.picks;
+    const picked = {
       date: game.date,
       game: game._id,
       pick: team,
-      correct: false
+      correct: -1
     };
+    // console.log('picked: ', picked);
+    let picks = [];
+    (picks = propPicks.filter(pick => pick.game !== game._id)).push(picked);
+    // console.log('new pick 2: ', picks);
+    // this.props.createPick()
     this.props.createPick(this.state.id, picks);
-
 
     //will need to implement this feature once the userDB is up and running
   }

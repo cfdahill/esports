@@ -22,7 +22,7 @@ let UserSchema = new Schema ({
         date: Date,
         game: {type: Schema.Types.ObjectId, ref: "Game"},
         pick: String,
-        correct: Boolean
+        correct: Number
     }],
     rewards: [{
         date: Date,
