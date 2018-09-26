@@ -10,18 +10,24 @@ module.exports = {
       })
       .catch(err => res.status(422).json(err));
   },
-  // findById: function(req, res) {
-  //   db.User
-  //     .findById(req.params.id)
-  //     .then(dbModel => res.json(dbModel))
-  //     .catch(err => res.status(422).json(err));
-  // },
-  // create: function(req, res) {
-  //   db.User 
-  //     .create(req.body)
-  //     .then(dbModel => res.json(dbModel))
-  //     .catch(err => res.state(422).json(err));
-  // },
+
+  findById: function(req, res) {
+    db.User
+      .findById(req.params.id)
+      .then(dbModel => {
+        console.log("dbmodel: ", dbModel);
+        res.json(dbModel)
+      })
+      .catch(err => res.status(422).json(err));
+  },
+
+  create: function(req, res) {
+    db.User 
+      .create(req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.state(422).json(err));
+  },
+  
   update: function(req, res) {
     console.log("req.body", req.body)
     db.User

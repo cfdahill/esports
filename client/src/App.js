@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Header from "./components/Header";
 import Navibar from "./components/Navibar";
-import Login from "./containers/Login";
-import CreateAccount from "./containers/CreateAccount";
+import Login from "./components/Login";
+import CreateAccount from "./components/CreateAccount";
 import Calendar from "./containers/Calendar";
 import Picks from "./containers/Picks";
 
