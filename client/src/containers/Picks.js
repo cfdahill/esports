@@ -3,15 +3,16 @@ import {connect} from 'react-redux';
 // import {bindActionCreators} from 'redux';
 import {fetchSchedule, fetchPicks, createPick} from '../actions';
 import _ from 'lodash';
+// import axios from 'axios';
 import moment from 'moment';
 import {Well, Grid, Row, Col, Button} from "react-bootstrap";
+import '../tempCSS.css';
 
 
 class Picks extends Component {
 
   state = {
-    id: localStorage.getItem("_id"),
-    picks: []
+    id: localStorage.getItem("_id")
   }
  
   componentDidMount = () => {
@@ -20,17 +21,6 @@ class Picks extends Component {
   }
 
   savePick = (team, game) => {
-    /*give buttons names gameID+away or home
-      use getElementByName to change the class
-      use if statement to get the other team to change class as well
-      might not need to do, get updating done first
-
-      saving picks:
-        still need to do:
-      update db
-    */
-
-    console.log(`game: `, game);
     const propPicks = this.props.picks;
     const picked = {
       date: game.date,
@@ -38,14 +28,14 @@ class Picks extends Component {
       pick: team,
       correct: -1
     };
-    // console.log('picked: ', picked);
     let picks = [];
     (picks = propPicks.filter(pick => pick.game !== game._id)).push(picked);
-    // console.log('new pick 2: ', picks);
-    // this.props.createPick()
-    this.props.createPick(this.state.id, picks);
+    const dataToPush = {picks: picks};
+    console.log(dataToPush);
+    this.props.createPick(this.state.id, dataToPush, () => {
+      this.props.fetchPicks(this.state.id)
+    });
 
-    //will need to implement this feature once the userDB is up and running
   }
 
   match = () => {

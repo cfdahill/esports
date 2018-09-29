@@ -12,7 +12,7 @@ router.get('/user', (req, res, next) => {
 	} else {
 		return res.json({ user: null });
 	}
-})
+});
 
 router.get('/login', function(req, res) {
     console.log(req.flash('error'));

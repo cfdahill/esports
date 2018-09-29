@@ -5,7 +5,7 @@ module.exports = {
     db.User
       .find({_id: req.body._id})
       .then(dbModel => {
-        console.log("dbmodel:", dbModel);
+        console.log("db.User.find dbmodel:", dbModel);
         res.json(dbModel);
       })
       .catch(err => res.status(422).json(err));
@@ -15,36 +15,30 @@ module.exports = {
     db.User
       .findById(req.params.id)
       .then(dbModel => {
-        console.log("dbmodel: ", dbModel);
+        console.log("db.User.findById dbmodel: ", dbModel);
         res.json(dbModel)
       })
       .catch(err => res.status(422).json(err));
   },
 
-  create: function(req, res) {
-    db.User 
-      .create(req.body)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.state(422).json(err));
-  },
+  // create: function(req, res) {
+  //   db.User 
+  //     .create(req.body)
+  //     .then(dbModel => res.json(dbModel))
+  //     .catch(err => res.state(422).json(err));
+  // },
   
   update: function(req, res) {
-    console.log("req.body", req.body)
+    console.log("-----usersController.js.update-------");
+    console.log("req.body: ", req.body);
+    console.log("req.body.picks: ", req.body.picks);
+    // const picks = JSON.stringify(req.body.picks);
     db.User
-      .find({_id: req.body._id}) //.elemMatch("savedEvents", req.body.itemToSave)
+      .findOneAndUpdate({_id: req.params.id}, {$set:{picks: req.body.picks}})
       .then(dbModel => {
-        console.log("dbmodel", dbModel)
-        console.log("dbmodel type", typeof(dbModel))
-        if (dbModel.length === 0) {
-          db.User
-          //.update({_id: req.body._id}, {$push: {savedEvents: req.body.itemToSave}})
-          .then(dbModel => res.json(req))
-          .catch(err => res.json(err));       
-        }
-        else {
-          res.json(req)
-        }
+        return(res.json(dbModel))
       })
+      .catch(err => res.state(422).json(err));
   }
   // remove: function(req, res) {
   //   db.User
