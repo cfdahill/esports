@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {fetchSchedule, fetchPicks, createPick} from '../actions';
 import _ from 'lodash';
 // import axios from 'axios';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import {Well, Grid, Row, Col, Button} from "react-bootstrap";
 import '../tempCSS.css';
 
@@ -12,14 +12,17 @@ import '../tempCSS.css';
 class Picks extends Component {
 
   state = {
-    id: localStorage.getItem("_id")
+    id: localStorage.getItem("_id"),
   }
  
   componentDidMount = () => {
-    this.props.fetchPicks(this.state.id);
+    if(localStorage.getItem("_id")) {
+      this.props.fetchPicks(this.state.id);
+    }
     this.props.fetchSchedule();
   }
 
+  //saves user's picks to database and rerenders appropriate component
   savePick = (team, game) => {
     const propPicks = this.props.picks;
     const picked = {
@@ -35,18 +38,24 @@ class Picks extends Component {
     this.props.createPick(this.state.id, dataToPush, () => {
       this.props.fetchPicks(this.state.id)
     });
-
   }
 
+  //renders each individual event information with buttons for picks
   match = () => {
-    return _.map(this.props.events, event => {
-    const userPick = this.props.picks.find(pick => (pick.game === event._id));
-    let pick = '';
-    if(userPick) {pick = userPick.pick};
-    const date = moment(event.date).format('MMMM D, YYYY');
-    const time = moment(event.date).format('h:mm a');
-    return(
-      <Well key={event._id}>
+    let events = this.props.events;
+    if(events.length > 1) {
+      //The following line will remove any events from rendering if the event was more than 2 days ago.  Will uncomment once I am ready to implement this.
+      // events = this.props.events.filter(event => (moment(event.date).isAfter(moment().add(2, 'days'))));
+      events = _.sortBy(events,['date']);
+    }
+    return _.map(events, event => {
+      const userPick = this.props.picks.find(pick => (pick.game === event._id));
+      let pick = '';
+      if(userPick) {pick = userPick.pick};
+      const date = moment(event.date).format('MMMM D, YYYY');
+      const time = moment(event.date).format('h:mm a');
+      return(
+        <Well key={event._id}>
             <Grid>
             <Row>
               <Col xs={3}>{event.league} LOGO</Col>
@@ -54,27 +63,47 @@ class Picks extends Component {
                 <Row>
                   <h2>{event.awayTeam} vs {event.homeTeam}</h2>
                 </Row>
-                <Row>
-                  <Col xs={2}>
-                    <Button 
-                      type="submit" 
-                      className={pick === event.awayTeam ? `picked` : `notPicked`}
-                      onClick={() => {this.savePick(event.awayTeam, event)}}
-                    >
-                      awayLogo
-                    </Button>
-                  </Col>
-                  <Col xs={2}>{event.awayScore} - {event.homeScore}</Col>
-                  <Col xs={2}>
-                    <Button 
-                      type="submit" 
-                      className={pick === event.homeTeam ? `picked` : `notPicked`}
-                      onClick={() => {this.savePick(event.homeTeam, event)}}
-                    >
-                      homeLogo
-                    </Button>
-                  </Col>
-                </Row>
+                    {/* {((event.homeScore === 3) || (event.awayScore ===3 )) ?
+                      <Row>
+                      <Col xs={2}>
+                        <div className={pick === event.awayTeam ? `picked` : `notPicked`}>
+                          awayLogo
+                        </div>
+                      </Col>
+                      <Col xs={2}>
+                        {event.awayScore} - {event.homeScore}
+                      </Col>
+                      <Col xs={2}>
+                        <div className={pick === event.homeTeam ? `picked` : `notPicked`}>
+                          homeLogo
+                        </div>
+                      </Col>
+                      </Row>
+                    : */}
+                      <Row>
+                      <Col xs={2}>
+                        <Button 
+                          type="submit" 
+                          className={pick === event.awayTeam ? `picked` : `notPicked`}
+                          onClick={() => {this.savePick(event.awayTeam, event)}}
+                        >
+                          awayLogo
+                        </Button>
+                      </Col>
+                      <Col xs={2}>
+                        {event.awayScore} - {event.homeScore}
+                      </Col>
+                      <Col xs={2}>
+                        <Button 
+                            type="submit" 
+                            className={pick === event.homeTeam ? `picked` : `notPicked`}
+                            onClick={() => {this.savePick(event.homeTeam, event)}}
+                          >
+                            homeLogo
+                          </Button>
+                      </Col>
+                      </Row>
+                    }
                 <Row>
                   {time}, {date}
                 </Row>
@@ -91,13 +120,21 @@ class Picks extends Component {
     return(
       <div>
         <h1>Picks</h1>
+        <button onClick={ (e) => {
+          e.preventDefault();
+          let points = JSON.parse(localStorage.getItem("points"));
+          points.lifetime++;
+          localStorage.setItem("points", JSON.stringify(points));
+          }}
+        >
+          Add a point
+        </button>
           <div>
             {this.match()}
           </div>
       </div>
     )
   }
-
 }
 
 

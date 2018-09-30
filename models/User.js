@@ -24,6 +24,12 @@ let UserSchema = new Schema ({
         pick: String,
         correct: Number
     }],
+    archivePicks: [{
+      date: Date,
+      game: {type: Schema.Types.ObjectId, ref: "Game"},
+      pick: String,
+      correct: Number
+  }],
     rewards: [{
         date: Date,
         item: String,
