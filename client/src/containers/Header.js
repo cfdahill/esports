@@ -23,52 +23,52 @@ class Header extends Component {
     }
   }
 
-  // componentDidUpdate = () => {
-  //   if(this.props.events.length > 0 && this.props.picks.length > 0) {
-  //     console.log(this.props.picks, this.props.events, this.props.points);
-
-  //     console.log('running scoreOldEvents');
-  //     this.scoreOldEvents();
-  //     this.setState({propsLoaded: true});
+  componentDidUpdate = () => {
+    if(this.props.events.length > 0 && this.props.picks.length > 0 && !isNaN(this.props.points.lifetime) && !this.state.propsLoaded) {
+      console.log(this.props.picks, this.props.events, this.props.points, this.state.propsLoaded);
+      console.log('running scoreOldEvents');
+      this.scoreOldEvents();
+      this.setState({propsLoaded: true});
       
-  //   }
-  // }
+    }
+  }
 
   //goes through the schedule to find events that are over, compares the winner to user picks, 
   //moves scored picks to archive, and updates the score.  Pushes all this to the database
-  // scoreOldEvents = () => {
-  //   console.log(this.props.picks, this.props.events, this.props.points);
-  //   let addScore = 0;
-  //   let archivePicks = this.props.events.filter(event => ((event.homeScore === 3) || (event.awayScore ===3))).map(event => {
-  //     let winner = '';
-  //     if (event.homeScore === 3) {winner = event.homeTeam}
-  //     else if (event.awayScore === 3) {winner = event.awayTeam}
-  //     let tempPicks = this.props.picks.filter(pick => {
-  //       return(pick.game === event._id)
-  //     });
-  //     if (tempPicks === []) {return 0}
-  //     if (winner === tempPicks[0].pick) {
-  //       addScore++;
-  //       tempPicks[0].correct = 1;
-  //     } else {
-  //       tempPicks[0].correct = 0;
-  //     }
-  //     return (tempPicks[0]);
-  //   });
-  //   let currentPicks = this.props.picks.filter(pick => (pick.correct === -1));
-  //   let points = this.props.points;
-  //   points.lifetime = this.props.points.lifetime + addScore;
+  scoreOldEvents = () => {
+    console.log(this.props.picks, this.props.events, this.props.points);
+    let addScore = 0;
+    let archivePicks = this.props.events.filter(event => ((event.homeScore === 3) || (event.awayScore ===3))).map(event => {
+      let winner = '';
+      if (event.homeScore === 3) {winner = event.homeTeam}
+      else if (event.awayScore === 3) {winner = event.awayTeam}
+      let tempPicks = this.props.picks.filter(pick => {
+        return(pick.game === event._id)
+      });
+      if (tempPicks.length === 0) {return 0}
+      if (winner === tempPicks[0].pick) {
+        addScore++;
+        tempPicks[0].correct = 1;
+      } else {
+        tempPicks[0].correct = 0;
+      }
+      return (tempPicks[0]);
+    });
+    let currentPicks = this.props.picks.filter(pick => (pick.correct === -1));
+    let points = this.props.points;
+    points.lifetime = this.props.points.lifetime + addScore;
 
-  //   // const dataToPush = {
-  //   //   picks: currentPicks,
-  //   //   points: points,
-  //   //   archivePicks: archivePicks
-  //   // };
-  //   // console.log(dataToPush);
-  //   // this.props.createPick(this.state.id, dataToPush, () => {
-  //   //   this.props.fetchPicks(this.state.id)
-  //   // });
-  // }
+    const dataToPush = {
+      dataToPush: {
+        picks: currentPicks,
+        points: points,
+        archivePicks: archivePicks
+    }};
+    console.log(dataToPush);
+    this.props.createPick(this.state.id, dataToPush, () => {
+      this.props.fetchPicks(this.state.id)
+    });
+  }
 
   //logs user out
   _logout = () => {

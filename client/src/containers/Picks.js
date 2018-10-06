@@ -33,7 +33,9 @@ class Picks extends Component {
     };
     let picks = [];
     (picks = propPicks.filter(pick => pick.game !== game._id)).push(picked);
-    const dataToPush = {picks: picks};
+    const dataToPush = {dataToPush: {
+      picks: picks
+    }};
     console.log(dataToPush);
     this.props.createPick(this.state.id, dataToPush, () => {
       this.props.fetchPicks(this.state.id)
@@ -63,6 +65,8 @@ class Picks extends Component {
                 <Row>
                   <h2>{event.awayTeam} vs {event.homeTeam}</h2>
                 </Row>
+                {/* Uncomment out this part once you are ready to remove buttons of previous events
+                and you actually need to change it to being past current start time otherwise people can pick while the game is ongoing */}
                     {/* {((event.homeScore === 3) || (event.awayScore ===3 )) ?
                       <Row>
                       <Col xs={2}>
