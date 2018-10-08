@@ -4,9 +4,10 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from "./containers/Header";
 import Navibar from "./components/Navibar";
 import Login from "./components/Login";
-import CreateAccount from "./components/CreateAccount";
+import CreateAccount from "./containers/CreateAccount";
 import Calendar from "./containers/Calendar";
 import Picks from "./containers/Picks";
+import Admin from "./components/Admin";
 
 
 export default class App extends Component {
@@ -18,6 +19,7 @@ export default class App extends Component {
           <Header />
           <Navibar />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/admin" component={Admin} />
           <Route exact path="/createaccount" component={CreateAccount} />
           <Route exact path="/picks" component={Picks} />
           <Route exact path="/calendar" component={Calendar} />

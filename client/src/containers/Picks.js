@@ -124,18 +124,9 @@ class Picks extends Component {
     return(
       <div>
         <h1>Picks</h1>
-        <button onClick={ (e) => {
-          e.preventDefault();
-          let points = JSON.parse(localStorage.getItem("points"));
-          points.lifetime++;
-          localStorage.setItem("points", JSON.stringify(points));
-          }}
-        >
-          Add a point
-        </button>
-          <div>
-            {this.match()}
-          </div>
+        <div>
+          {this.match()}
+        </div>
       </div>
     )
   }

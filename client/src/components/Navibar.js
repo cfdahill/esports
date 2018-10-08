@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import {Navbar, Nav, NavDropdown, MenuItem} from "react-bootstrap";
+import {Link} from 'react-router-dom';
+
 
 export default class Navigation extends Component {
 
@@ -9,21 +11,25 @@ export default class Navigation extends Component {
         <Navbar inverse collapseOnSelect>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="/">BlizzPicks</a>
+              <Link to="/">BlizzPicks</Link>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav>
             <NavDropdown eventKey={0} title="Picks" id="basic-nav-dropdown">
-                <MenuItem eventKey={0.1} href="/picks">Picks</MenuItem>
+                {/* <MenuItem eventKey={0.1}> */}
+                  <Link to="/picks">Picks</Link>
+                {/* </MenuItem> */}
                 <MenuItem eventKey={0.2}>Store</MenuItem>
                 <MenuItem eventKey={0.3}>Top Scores</MenuItem>
                 <MenuItem eventKey={0.4}>Account</MenuItem>
               </NavDropdown>
               <NavDropdown eventKey={1} title="eSports" id="basic-nav-dropdown">
                   <MenuItem eventKey={1.1}>News</MenuItem>
-                  <MenuItem eventKey={1.2} href="/calendar">Calendar</MenuItem>
+                  {/* <MenuItem eventKey={1.2}> */}
+                    <Link to="/calendar">Calendar</Link>
+                  {/* </MenuItem> */}
               </NavDropdown>
               <NavDropdown eventKey={2} title="OverWatch" id="basic-nav-dropdown">
                   <MenuItem eventKey={2.1} href="https://playoverwatch.com/" target="blank">About</MenuItem>

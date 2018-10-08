@@ -10,7 +10,7 @@ class Header extends Component {
   state = {
     name: 'Visitor',
     id: localStorage.getItem("_id"),
-    propsLoaded: false
+    propsLoaded: false,
   }
 
   componentDidMount = () => {

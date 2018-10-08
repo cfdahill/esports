@@ -33,7 +33,7 @@ class Login extends Component {
         localStorage.clear();
         localStorage.setItem("_id", response.data.user._id);
         localStorage.setItem("name", response.data.user.username);
-        localStorage.setItem("points", JSON.stringify(response.data.user.points));
+        localStorage.setItem("account", response.data.user.accType);
       }
     })
     .catch(error => {

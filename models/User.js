@@ -34,7 +34,9 @@ let UserSchema = new Schema ({
         date: Date,
         item: String,
         cost: Number
-    }]
+    }],
+    accType: {type: String, default: "player"}
+
 });
 //calPal has this twice with the only difference being the .local. on line 36
 UserSchema.methods = {
