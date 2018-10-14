@@ -27,10 +27,6 @@ module.exports = {
   // },
   
   update: function(req, res) {
-    console.log("-----usersController.js.update-------");
-    console.log("req.body: ", req.body);
-    console.log("req.body.picks: ", req.body.dataToPush);
-    // const picks = JSON.stringify(req.body.picks);
     db.User
       .findOneAndUpdate({_id: req.params.id}, {$set:req.body.dataToPush})
       .then(dbModel => {

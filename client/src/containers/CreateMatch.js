@@ -12,7 +12,7 @@ class CreateMatch extends Component {
       homeTeam: "",
       awayTeam: "",
       league: "",
-      _id: "",
+      _id: "ID",
       homeScore: 0,
       awayScore: 0,
       date: "",
@@ -25,11 +25,12 @@ class CreateMatch extends Component {
       homeTeam: "",
       awayTeam: "",
       league: "",
-      _id: "",
+      _id: "ID",
       homeScore: 0,
       awayScore: 0,
       date: "",
-      watch: [""]
+      watch: [""],
+      bestOf: 0
     },
     teams: []
   }
@@ -52,6 +53,7 @@ class CreateMatch extends Component {
 
   // }
   changeLeague = e => {
+    console.log('league changed');
     const twitch = {
       hgc:'https://www.twitch.tv/blizzheroes',
       hgg:'https://www.twitch.tv/playhearthstone',
@@ -59,7 +61,15 @@ class CreateMatch extends Component {
       swc:'https://www.twitch.tv/starcraft',
       awc:'https://www.twitch.tv/warcraft',
       mdi:'https://www.twitch.tv/warcraft'
-    }
+    };
+    let formInfo = this.state.formInfo;
+    formInfo.league = e.target.value;
+    formInfo.watch[0] = twitch[e.target.value];
+    this.changeTeams([e.target.value]);
+    this.setState({formInfo});
+  }
+
+  changeTeams = source => {
     const allTeams = {
       hgc: ['hgc1', 'hgc2'],
       hgg: ['hgg1', 'hgg2'],
@@ -67,12 +77,9 @@ class CreateMatch extends Component {
       swc: ['swc1', 'swc2'],
       awc: ['awc1', 'awc2'],
       mdi: ['mdi1', 'mdi2']
-    }
-    let formInfo = this.state.formInfo;
-    formInfo.league = e.target.value;
-    formInfo.watch[0] = twitch[e.target.value];
-    const teams = allTeams[e.target.value];
-    this.setState({formInfo, teams});
+    };
+    const teams = allTeams[source];
+    this.setState({teams});
   }
 
   changeBestOf = e => {
@@ -93,7 +100,9 @@ class CreateMatch extends Component {
   console.log(this.state.formInfo);
   //save a new match
   const dataToSave = this.state.formInfo;
-  if(dataToSave._id === "") {
+  if(dataToSave._id === "ID") {
+    delete dataToSave._id;
+    console.log('dataToSave: ', dataToSave)
     this.props.createSchedule(dataToSave, () => {this.reset()});
   } else {
     this.props.updateSchedule(dataToSave._id, dataToSave, () => {this.reset()});
@@ -127,6 +136,7 @@ reset = () => {
               key={match._id}
               eventKey={match.awayTeam}
               onClick={() => {
+                this.changeTeams(match.league);
                 this.setState({formInfo: match}, console.log(formInfo));
               }}
               >
@@ -141,7 +151,7 @@ reset = () => {
               <FormControl
                 type="text"
                 value={formInfo._id}
-                placeholder="ID"
+                placeholder={formInfo._id}
                 readOnly
               />
             </FormGroup>
@@ -187,20 +197,24 @@ reset = () => {
             <FormGroup>
               <ControlLabel>Away Team</ControlLabel>
               <FormControl componentClass='select'
-                 value={formInfo.awayTeam} 
-                 placeholder={formInfo.awayTeam} 
-                 name="awayTeam"
-                 onChange={e => this.handleChange(e)}>
+                value={formInfo.awayTeam} 
+                placeholder={formInfo.awayTeam} 
+                name="awayTeam"
+                onChange={e => this.handleChange(e)}
+              >
+                <option value={formInfo.awayTeam}>{formInfo.awayTeam}</option>
                 {this.state.teams.map(team => (<option value={team} key={team}>{team}</option>))}
               </FormControl>
             </FormGroup>
             <FormGroup>
               <ControlLabel>Home Team</ControlLabel>
               <FormControl componentClass='select' 
-                value={formInfo.awayTeam} 
-                placeholder={formInfo.awayTeam} 
+                value={formInfo.homeTeam} 
+                placeholder={formInfo.homeTeam} 
                 name="homeTeam"
-                onChange={e => this.handleChange(e)}>
+                onChange={e => this.handleChange(e)}
+              >
+                <option value={formInfo.homeTeam}>{formInfo.homeTeam}</option>
                 {this.state.teams.map(team => (<option value={team} key={team}>{team}</option>))}
               </FormControl>
             </FormGroup>

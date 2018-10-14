@@ -5,14 +5,15 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const GameSchema = new Schema({
+    title: {type: String, required: false},
     league: {type: String, required: true},
-    game: {type: String, required: true},
-    series: {type: Number},
+    bestOf: {type: Number, default: 0},
     homeTeam: {type: String, required: true},
     homeScore: {type: Number, default: 0},
     awayTeam: {type: String, required: true},
     awayScore: {type: Number, default: 0},
-    date: {type: Date, required: true}
+    date: {type: Date, required: true},
+    watch: [String]
   });
 
 const Game = mongoose.model("Game", GameSchema);
