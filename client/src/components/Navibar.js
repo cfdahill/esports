@@ -58,6 +58,9 @@ export default class Navigation extends Component {
                   <MenuItem eventKey={5.2} href="https://ksl.starcraft.com/" target="blank">Korea StarCraft League (KSL)</MenuItem>
                   <MenuItem eventKey={5.3} href="https://wcs.starcraft2.com/" target="blank">StarCraft II World Championship Series (WCS)</MenuItem>
               </NavDropdown>
+              {localStorage.getItem("account") === "admin" ? <Navbar.Brand>
+                  <Link to="/admin">Admin</Link>
+                </Navbar.Brand> : ''}
             </Nav>
           </Navbar.Collapse>
         </Navbar>

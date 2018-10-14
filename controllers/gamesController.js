@@ -10,11 +10,24 @@ module.exports = {
       })
       .catch(err => res.status(422).json(err));
   },
+  create: function(req, res) {
+    db.Game
+      .create(req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.state(422).json(err));
+  },
   findById: function(req, res) {
     db.Game
       .findById(req.params.id)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
+  },
+  update: function(req, res) {
+    db.Game
+      .findOneAndUpdate({_id: req.params.id}, {$set:req.body.dataToPush})
+      .then(dbModel => {
+        return(res.json(dbModel))
+      })
+      .catch(err => res.state(422).json(err));
   }
-  //client side does not need any create, update, or remove function for the games
 }
