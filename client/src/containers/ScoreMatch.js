@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
 import moment from 'moment-timezone';
-import {SplitButton, MenuItem, FormGroup, FormControl, ControlLabel, Form, Radio, Button} from "react-bootstrap";
+import {SplitButton, MenuItem, FormGroup, FormControl, ControlLabel, Form, Button} from "react-bootstrap";
 import {fetchSchedule, updateSchedule} from '../actions';
 
 class ScoreMatch extends Component {
@@ -65,7 +65,8 @@ class ScoreMatch extends Component {
               this.setState({formInfo: this.state.newForm});
             }}
           >New Match</MenuItem>
-          {this.props.events.filter(match => (moment(match.date).isAfter(moment().add(3, 'hours')))).map(match => (
+          {this.props.events.filter(match => (moment(match.date).isBefore(moment().add(3, 'hours')) 
+              && moment(match.date).isAfter(moment().subtract(1, 'day')))).map(match => (
             <MenuItem 
               key={match._id}
               eventKey={match.awayTeam}

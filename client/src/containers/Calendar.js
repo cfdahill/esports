@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {fetchSchedule} from '../actions';
 import FullCalendar from 'fullcalendar-reactwrapper';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import {ToggleButtonGroup, ToggleButton, Button, Modal} from "react-bootstrap";
 import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
 
@@ -39,8 +39,9 @@ class Calendar extends Component {
       console.log(this.props);
         let events = this.props.events.map( event => ({
             title: `${event.league}: ${event.awayTeam} vs. ${event.homeTeam}`,
-            start: event.date,
-            game: event.game
+            start: moment.tz(event.date, 'America/Phoenix'),
+            game: event.game,
+            watch: event.watch[0]
             }));
         this.setState({events});
     }
@@ -76,11 +77,15 @@ class Calendar extends Component {
   //show Modal
   handleShow = (e) => {
     console.log(e);
+    const date = moment.tz(e.start, 'America/Phoenix');
+    const guessTZ = moment.tz.guess();
+    console.log(date);
     let modalEvent = {
       title: e.title,
-      date: moment(e.start._i).format('MMMM D, YYYY'),
-      time: moment(e.start._i).format('h:mm a'),
-      game: e.game
+      date: moment(date._i).tz(guessTZ).format('MMMM D, YYYY'),
+      time: moment(date._i).tz(guessTZ).format('h:mm a z'),
+      game: e.game,
+      watch: e.watch
     }
     this.setState({ modalEvent, show: true });
   }
@@ -117,6 +122,8 @@ class Calendar extends Component {
                 Date: {this.state.modalEvent.date} 
                 <br></br>
                 Time: {this.state.modalEvent.time}
+                <br></br>
+                Watch: <a href={this.state.modalEvent.watch} target="blank">Twitch</a>
               </Modal.Body>
               <Modal.Footer>
                 <Button onClick={this.handleClose}>Close</Button>

@@ -58,6 +58,7 @@ class Picks extends Component {
       const time = moment(event.date).format('h:mm a');
       return(
         <Well key={event._id}>
+            <h1>{event.title}</h1>
             <Grid>
             <Row>
               <Col xs={3}>{event.league} LOGO</Col>
@@ -112,7 +113,7 @@ class Picks extends Component {
                   {time}, {date}
                 </Row>
               </Col>
-              <Col xs={3}>Watch URL</Col>
+              <Col xs={3}> Watch: <a href={event.watch[0]} target="blank">Twitch</a></Col>
             </Row>
             </Grid>
           </Well>

@@ -13,7 +13,8 @@ const GameSchema = new Schema({
     awayTeam: {type: String, required: true},
     awayScore: {type: Number, default: 0},
     date: {type: Date, required: true},
-    watch: [String]
+    watch: [String],
+    game: {type: String, required: true}
   });
 
 const Game = mongoose.model("Game", GameSchema);

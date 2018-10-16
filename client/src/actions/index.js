@@ -3,9 +3,10 @@ import axios from 'axios';
 export const FETCH_SCHEDULE = 'fetch_schedule';
 export const FETCH_PICKS = 'fetch_picks';
 export const FETCH_POINTS = 'fetch_points';
+export const FETCH_SHOP = 'fetch_shop';
 export const CREATE_PICK = 'create_pick';
-export const UPDATE_SCHEDULE = 'update_schedule';
 export const CREATE_SCHEDULE = 'create_schedule';
+export const UPDATE_SCHEDULE = 'update_schedule';
 
 export function fetchPicks(id) {
   const request = axios.get(`/api/users/${id}`);
@@ -31,22 +32,21 @@ export function fetchSchedule() {
   };
 }
 
+export function fetchShop() {
+  const request = axios.get(`/api/shop`);
+  return {
+      type: FETCH_SHOP,
+      payload: request
+  };
+}
+
 export function createPick(id, values, cb) {
   const request = axios.put(`api/users/${id}`, values)
     .then(() => cb());
   return {
     type: CREATE_PICK,
     payload: request
-  }
-}
-
-export function updateSchedule(id, values, cb) {
-  const request = axios.put(`api/games/${id}`, values)
-    .then(() => cb());
-  return {
-    type: UPDATE_SCHEDULE,
-    payload: request
-  }
+  };
 }
 
 export function createSchedule(values, cb) {
@@ -55,5 +55,14 @@ export function createSchedule(values, cb) {
   return {
     type: CREATE_SCHEDULE,
     payload: request
-  }
+  };
+}
+
+export function updateSchedule(id, values, cb) {
+  const request = axios.put(`api/games/${id}`, values)
+    .then(() => cb());
+  return {
+    type: UPDATE_SCHEDULE,
+    payload: request
+  };
 }
