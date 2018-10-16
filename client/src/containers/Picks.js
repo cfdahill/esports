@@ -46,8 +46,8 @@ class Picks extends Component {
   match = () => {
     let events = this.props.events;
     if(events.length > 1) {
-      //The following line will remove any events from rendering if the event was more than 2 days ago.  Will uncomment once I am ready to implement this.
-      // events = this.props.events.filter(event => (moment(event.date).isAfter(moment().add(2, 'days'))));
+      //The following line will remove any events from rendering if the event was more than 1 day ago.  Will uncomment once I am ready to implement this.
+      // events = this.props.events.filter(event => (moment(event.date).isAfter(moment().add(1, 'days'))));
       events = _.sortBy(events,['date']);
     }
     return _.map(events, event => {

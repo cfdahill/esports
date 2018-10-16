@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Grid, Row, Col, Button} from "react-bootstrap";
 
 import CreateMatch from '../containers/CreateMatch';
+import ScoreMatch from '../containers/ScoreMatch';
 
 export default class Admin extends Component {
   state = {
@@ -16,6 +17,7 @@ export default class Admin extends Component {
       showEvents: false,
       showUsers: false,
       showStore: false,
+      showScore: false
     };
     show[e.target.value] = true
     this.setState(show);
@@ -44,7 +46,8 @@ export default class Admin extends Component {
   form =() => {
     return(
       <div>
-        {this.state.showEvents ? <CreateMatch /> :
+        {this.state.showScore ? <ScoreMatch /> :
+          this.state.showEvents ? <CreateMatch /> :
           this.state.showUsers ? this.usersForm() :
           this.state.showStore ? this.storeForm() :
           <p>Choose an action.</p>}
@@ -60,13 +63,16 @@ export default class Admin extends Component {
         </h1>
         <Grid>
           <Row className="show-grid">
-            <Col xs={6} md={4}>
-              <Button onClick={this.formPicked} value="showEvents">{'Edit/Add Events'}</Button>
+          <Col xs={4} md={4}>
+              <Button onClick={this.formPicked} value="showScore">{'Score Matches'}</Button>
             </Col>
-            <Col xs={6} md={4}>
+            <Col xs={4} md={3}>
+              <Button onClick={this.formPicked} value="showEvents">{'Edit/Add Matches'}</Button>
+            </Col>
+            <Col xs={4} md={3}>
               <Button onClick={this.formPicked} value="showUsers">{'Edit Users'}</Button>
             </Col>
-            <Col xs={6} md={4}>
+            <Col xs={4} md={3}>
               <Button onClick={this.formPicked} value="showStore">{'Edit Store'}</Button>
             </Col>
           </Row>

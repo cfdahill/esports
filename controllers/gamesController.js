@@ -23,9 +23,6 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
   update: function(req, res) {
-    console.log('gamesController.update:');
-    console.log('req.body: ', req.body);
-    console.log('req.params: ', req.params);
     db.Game
       .findOneAndUpdate({_id: req.params.id}, {$set:req.body})
       .then(dbModel => {

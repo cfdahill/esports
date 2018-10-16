@@ -2,8 +2,8 @@ import React, {Component} from "react";
 import {connect} from 'react-redux';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
-import {Grid, Row, Col, SplitButton, MenuItem, FormGroup, FormControl, ControlLabel, Form, Radio, Button} from "react-bootstrap";
-import {fetchSchedule, fetchPicks, fetchPoints, createPick, updateSchedule, createSchedule} from '../actions';
+import {SplitButton, MenuItem, FormGroup, FormControl, ControlLabel, Form, Radio, Button} from "react-bootstrap";
+import {fetchSchedule, updateSchedule, createSchedule} from '../actions';
 
 class CreateMatch extends Component {
   state = {
@@ -119,7 +119,6 @@ reset = () => {
     return(
       <div>
         <SplitButton
-          // bsStyle={title.toLowerCase()}
           title={formInfo.title}
           key={0}
           id={`split-button-basic-0`}
@@ -262,9 +261,7 @@ reset = () => {
 function mapStateToProps(state) {
   return {
     events: state.events,
-    picks: state.picks,
-    points: state.points
   };
 }
 
-export default connect(mapStateToProps, {fetchPicks, fetchPoints, fetchSchedule, createPick, createSchedule, updateSchedule})(CreateMatch);
+export default connect(mapStateToProps, {fetchSchedule, createSchedule, updateSchedule})(CreateMatch);

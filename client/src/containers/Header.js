@@ -38,10 +38,10 @@ class Header extends Component {
   scoreOldEvents = () => {
     console.log(this.props.picks, this.props.events, this.props.points);
     let addScore = 0;
-    let archivePicks = this.props.events.filter(event => ((event.homeScore === 3) || (event.awayScore ===3))).map(event => {
+    let archivePicks = this.props.events.filter(event => ((event.homeScore === Math.ceil(event.bestOf/2)) || (event.awayScore === Math.ceil(event.bestOf/2)))).map(event => {
       let winner = '';
-      if (event.homeScore === 3) {winner = event.homeTeam}
-      else if (event.awayScore === 3) {winner = event.awayTeam}
+      if (event.homeScore === Math.ceil(event.bestOf/2)) {winner = event.homeTeam}
+      else if (event.awayScore === Math.ceil(event.bestOf/2)) {winner = event.awayTeam}
       let tempPicks = this.props.picks.filter(pick => {
         return(pick.game === event._id)
       });
