@@ -27,9 +27,6 @@ class Calendar extends Component {
     componentDidMount = () => {
         this.props.fetchSchedule()
           .then(result => {
-            // console.log(result.payload.data);
-            // console.log(this.props);
-            // console.log(this.state);
             this.events();
           });
     }

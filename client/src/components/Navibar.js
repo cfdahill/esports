@@ -21,7 +21,8 @@ export default class Navigation extends Component {
                 {/* <MenuItem eventKey={0.1}> */}
                   <Link to="/picks">Picks</Link>
                 {/* </MenuItem> */}
-                <MenuItem eventKey={0.2}>Store</MenuItem>
+                {/* <MenuItem eventKey={0.2}>Shop</MenuItem> */}
+                <Link to="/shop">Shop</Link>
                 <MenuItem eventKey={0.3}>Top Scores</MenuItem>
                 <MenuItem eventKey={0.4}>Account</MenuItem>
               </NavDropdown>

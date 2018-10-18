@@ -1,9 +1,7 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
-// import {bindActionCreators} from 'redux';
 import {fetchSchedule, fetchPicks, createPick} from '../actions';
 import _ from 'lodash';
-// import axios from 'axios';
 import moment from 'moment-timezone';
 import {Well, Grid, Row, Col, Button} from "react-bootstrap";
 import '../tempCSS.css';
@@ -107,8 +105,7 @@ class Picks extends Component {
                             homeLogo
                           </Button>
                       </Col>
-                      </Row>
-                    }
+                    </Row>
                 <Row>
                   {time}, {date}
                 </Row>
@@ -140,9 +137,5 @@ function mapStateToProps(state) {
     picks: state.picks
   };
 }
-
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators({fetchSchedule}, dispatch)
-// }
 
 export default connect(mapStateToProps, {fetchPicks, fetchSchedule, createPick})(Picks);

@@ -8,7 +8,7 @@ export default class Admin extends Component {
   state = {
     showEvents: false,
     showUsers: false,
-    showStore: false,
+    showShop: false,
   }
 
 //sets all forms to false and the picked form to true so user can toggle between forms
@@ -16,7 +16,7 @@ export default class Admin extends Component {
     let show = {
       showEvents: false,
       showUsers: false,
-      showStore: false,
+      showShop: false,
       showScore: false
     };
     show[e.target.value] = true
@@ -34,7 +34,7 @@ export default class Admin extends Component {
   }
 
   //forms to edit store info (will make this a container)
-  storeForm = () => {
+  shopForm = () => {
     return(
       <div>
         This will let admin add/remove products, update descriptions and images, and adjust costs
@@ -49,7 +49,7 @@ export default class Admin extends Component {
         {this.state.showScore ? <ScoreMatch /> :
           this.state.showEvents ? <CreateMatch /> :
           this.state.showUsers ? this.usersForm() :
-          this.state.showStore ? this.storeForm() :
+          this.state.showShop ? this.shopForm() :
           <p>Choose an action.</p>}
       </div>
     )
@@ -73,7 +73,7 @@ export default class Admin extends Component {
               <Button onClick={this.formPicked} value="showUsers">{'Edit Users'}</Button>
             </Col>
             <Col xs={4} md={3}>
-              <Button onClick={this.formPicked} value="showStore">{'Edit Store'}</Button>
+              <Button onClick={this.formPicked} value="showShop">{'Edit Shop'}</Button>
             </Col>
           </Row>
         </Grid>

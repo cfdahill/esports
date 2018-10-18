@@ -8,6 +8,7 @@ import CreateAccount from "./containers/CreateAccount";
 import Calendar from "./containers/Calendar";
 import Picks from "./containers/Picks";
 import Admin from "./components/Admin";
+import Shop from "./containers/Shop";
 
 
 export default class App extends Component {
@@ -22,6 +23,7 @@ export default class App extends Component {
           <Route exact path="/admin" component={Admin} />
           <Route exact path="/createaccount" component={CreateAccount} />
           <Route exact path="/picks" component={Picks} />
+          <Route exact path="/shop" component={Shop} />
           <Route exact path="/calendar" component={Calendar} />
          </div>
         </Router>
