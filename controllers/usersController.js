@@ -27,12 +27,15 @@ module.exports = {
   // },
   
   update: function(req, res) {
+    console.log('usersController.update');
+    if(req) {console.log(req.params.id);
+      console.log(req.body.dataToPush)};
     db.User
       .findOneAndUpdate({_id: req.params.id}, {$set:req.body.dataToPush})
       .then(dbModel => {
         return(res.json(dbModel))
       })
-      .catch(err => res.state(422).json(err));
+      // .catch(err => res.state(422).json(err));
   }
   // remove: function(req, res) {
   //   db.User

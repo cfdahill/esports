@@ -11,6 +11,7 @@ class Header extends Component {
     name: 'Visitor',
     id: localStorage.getItem("_id"),
     propsLoaded: false,
+    points: {}
   }
 
   componentDidMount = () => {
@@ -19,17 +20,14 @@ class Header extends Component {
       this.props.fetchPoints(this.state.id);
       this.props.fetchPicks(this.state.id);
       const name = localStorage.getItem("name");
-      this.setState({name});
+      this.setState({name, points: this.props.points});
     }
   }
 
   componentDidUpdate = () => {
     if(this.props.events.length > 0 && this.props.picks.length > 0 && !isNaN(this.props.points.lifetime) && !this.state.propsLoaded) {
-      console.log(this.props.picks, this.props.events, this.props.points, this.state.propsLoaded);
-      console.log('running scoreOldEvents');
       this.scoreOldEvents();
       this.setState({propsLoaded: true});
-      
     }
   }
 

@@ -52,8 +52,9 @@ export function fetchSchedule() {
 // }
 
 export function createPick(id, values, cb) {
+  console.log("action.createPick triggered");
   const request = axios.put(`api/users/${id}`, values)
-    .then(() => cb());
+    .then(() => cb())
   return {
     type: CREATE_PICK,
     payload: request

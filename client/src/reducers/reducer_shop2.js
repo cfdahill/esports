@@ -44,7 +44,7 @@ export default function() {
           _id: "owskin",
           name: "Special Skins",
           cost: 10,
-          img: "owSkins.jgp",
+          img: "owSkins.jpg",
           game: "ow",
           description: "Special OverWatch skins"
         },

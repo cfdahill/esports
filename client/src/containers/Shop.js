@@ -7,10 +7,9 @@ import {ToggleButtonGroup, ToggleButton, Button, Modal} from "react-bootstrap";
 class Shop extends Component {
   state={
     id: localStorage.getItem("_id"),
-    points: {},
     value: [
-      { number: 0, game: "hs", name: "HearthStone", checked: true },
-      { number: 1, game: "hots", name: "Heroes of the Storm", checked: true },
+      { number: 0, game: "hots", name: "Heroes of the Storm", checked: true },
+      { number: 1, game: "hs", name: "HearthStone", checked: true },
       { number: 2, game: "ow", name: "OverWatch", checked: true },
       { number: 3, game: "sc", name: "StarCraft II", checked: true },
       { number: 4, game: "wow", name: "World of WarCraft", checked: true}
@@ -26,6 +25,7 @@ class Shop extends Component {
     if(localStorage.getItem("name")) {
       this.props.fetchPoints(this.state.id);
       this.props.fetchRewards(this.state.id);
+      this.setState({shop: this.props.shop});
     }
   }
 
@@ -35,7 +35,7 @@ class Shop extends Component {
     let shop = this.state.shop;
     let hideShop = this.state.hideShop;
     return(
-      <ToggleButton value={game.game} key={game.game} onChange={ () => {
+      <ToggleButton value={game.game} key={game.game} onChange={ (e) => {
         //For whatever reason, if this is in a different method it creates an infinate loop.
         if(game.checked){
           game.checked = false;
@@ -52,12 +52,30 @@ class Shop extends Component {
     }}>{game.name}</ToggleButton>
   )}
 
+  //renderStore
+  renderItems = () => {
+    console.log(this.state.shop);
+    return(this.state.shop.sort((a,b) => {
+      if (a.game < b.game)
+        return -1;
+      if (a.game > b.game)
+        return 1;
+      return 0;
+  }).map(item => (
+    <div key={item._id} value={item.game} onClick={e => {this.handleShow(e, item._id)}}>
+      <img src={`/images/${item.img}`} alt={item.name}></img>
+      <h2>{item.name}</h2>
+      <h3>{item.cost} points</h3>
+      <p>{item.description}</p>
+    </div>
+  )));
+}
+
+  //show Modal and pass info to it
   handleShow = (e, id) => {
-    console.log(e.target);
-    let modalEvent = this.props.shop.filter(item => (item._id === id));
+    let modalEvent = this.state.shop.filter(item => (item._id === id));
     modalEvent = modalEvent[0];
-    // modalEvent.cost = parseInt(modalEvent.cost);
-    this.setState({modalEvent, show:true}, console.log(modalEvent));
+    this.setState({modalEvent, show:true});
   }
 
   //hide Modal
@@ -65,22 +83,24 @@ class Shop extends Component {
     this.setState({ show: false });
   }
 
+  //change the quantity to buy
   changeQuantity = e => {
     let quantity = this.state.quantity;
-    quantity = quantity + parseInt(e.target.value);
+    quantity = quantity + parseInt(e.target.value, 10);
     console.log(typeof quantity);
     this.setState({quantity});
   }
 
+  //push to database
   savePurchase = (totalCost) => {
     let points = this.props.points;
     points.spent = this.props.points.spent + totalCost;
-    let rewards = this.props.rewards.push({
+    let rewards = this.props.rewards;
+    rewards.push({
       date: moment.now(),
       item: this.state.modalEvent._id,
       cost: totalCost
     });
-
     const dataToPush = {
       dataToPush: {
         points: points,
@@ -88,7 +108,7 @@ class Shop extends Component {
     }};
     console.log(dataToPush);
     this.props.createPick(this.state.id, dataToPush, () => {
-      this.props.fetchPicks(this.state.id)
+      this.props.fetchPoints(this.state.id);
     });
     this.setState({
     show: false,
@@ -99,22 +119,16 @@ class Shop extends Component {
 
   render() {
     let totalCost = this.state.modalEvent.cost * this.state.quantity;
-    console.log(typeof totalCost);
     return(
       <div>
+        <h1>Store</h1>
+        <h2>Points available: {this.props.points.lifetime - this.props.points.spent}</h2>
         <div>
           <ToggleButtonGroup type="checkbox">
              {this.state.value.map(game => (this.renderButton(game)))}
           </ToggleButtonGroup>
         </div>
-        {this.props.shop.map(item => (
-          <div key={item._id} onClick={e => {this.handleShow(e, item._id)}}>
-            <img src={`/images/${item.img}`} alt={item.name}></img>
-            <h2>{item.name}</h2>
-            <h3>{item.cost} points</h3>
-            <p>{item.description}</p>
-          </div>
-        ))}
+        {this.renderItems()}
           <Modal show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>{this.state.modalEvent.name}</Modal.Title>
@@ -124,17 +138,17 @@ class Shop extends Component {
               <Button value={-1} onClick={e => {this.changeQuantity(e)}}>
                 Less
               </Button>
-              <h2>{totalCost}</h2>
+              {isNaN(totalCost) ? <h2>0</h2> : <h2>{totalCost}</h2>}
               <Button value={1} onClick={e => {this.changeQuantity(e)}}>
                 More
               </Button>
             </Modal.Body>
             <Modal.Footer>
-              {totalCost < (this.props.points.lifetime - this.props.points.spent) ? 
+              {totalCost <= (this.props.points.lifetime - this.props.points.spent) ? 
                 <Button onClick={() => {this.savePurchase(totalCost)}}>
                   Purchase
                 </Button> :
-                <p>You currently cannot afford this, you currently only have {this.props.points.lifetime - this.props.points.spent} points.</p>
+                <p>You currently cannot afford this, you only have {this.props.points.lifetime - this.props.points.spent} points.</p>
               }
             </Modal.Footer>
           </Modal>
