@@ -24,10 +24,10 @@
   },
   "homepage": "https://github.com/cfdahill/esports#readme",
   "devDependencies": {
-    "concurrently": "^3.5.0",
-    "nodemon": "^1.11.0"
   },
   "dependencies": {
+    "concurrently": "^3.5.0",
+    "nodemon": "^1.11.0",
     "axios": "^0.16.2",
     "bcrypt": "^3.0.0",
     "bcryptjs": "^2.4.3",
