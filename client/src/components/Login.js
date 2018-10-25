@@ -35,6 +35,12 @@ class Login extends Component {
         localStorage.setItem("name", response.data.user.username);
         localStorage.setItem("account", response.data.user.accType);
       }
+    }).then(() => {
+      if(this.props.history.goBack() === "/createaccount") {
+        console.log("it worked");
+        //go to picks page
+      } 
+      this.props.history.goBack()
     })
     .catch(error => {
       console.log(error);

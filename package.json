@@ -23,15 +23,13 @@
     "url": "https://github.com/cfdahill/esports"
   },
   "homepage": "https://github.com/cfdahill/esports#readme",
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
-    "concurrently": "^3.5.0",
-    "nodemon": "^1.11.0",
     "axios": "^0.16.2",
     "bcrypt": "^3.0.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
+    "concurrently": "^4.0.1",
     "connect-mongo": "^2.0.1",
     "cookie-parser": "^1.4.3",
     "express": "^4.15.4",
@@ -39,6 +37,7 @@
     "if-env": "^1.0.4",
     "mongoose": "^5.0.17",
     "morgan": "^1.9.1",
+    "nodemon": "^1.11.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",

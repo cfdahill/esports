@@ -115,6 +115,7 @@ class Shop extends Component {
     quantity: 1,
     modalEvent:{}
     });
+    this.props.history.goBack();
   }
 
   render() {
@@ -123,6 +124,7 @@ class Shop extends Component {
       <div>
         <h1>Store</h1>
         <h2>Points available: {this.props.points.lifetime - this.props.points.spent}</h2>
+        <p>These products are not actually purchasable.  This is a proof of concept.  Have fun shopping for nothing!</p>
         <div>
           <ToggleButtonGroup type="checkbox">
              {this.state.value.map(game => (this.renderButton(game)))}

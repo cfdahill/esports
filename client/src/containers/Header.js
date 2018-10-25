@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import {Button} from "react-bootstrap";
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {fetchSchedule, fetchPicks, fetchPoints, createPick} from '../actions';
@@ -110,13 +111,13 @@ class Header extends Component {
         {this.state.name ==="Visitor" ? 
           <ul>
             <li>{this.state.name}</li>   
-            <li><Link to="/login"><button>Login</button></Link></li>
+            <li><Link to="/login"><Button>Login</Button></Link></li>
           </ul> :
           <ul>
             <li>{this.state.name}</li>
             <li>Total points: {this.props.points.lifetime}</li>
             <li>Current points: {this.props.points.lifetime - this.props.points.spent}</li>
-            <li><button onClick={this._logout}>Logout</button></li>
+            <li><Button onClick={this._logout}>Logout</Button></li>
           </ul>
         }
       </header>

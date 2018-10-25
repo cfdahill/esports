@@ -71,12 +71,12 @@ class CreateMatch extends Component {
 
   changeTeams = source => {
     const allTeams = {
-      hgc: ['hgc1', 'hgc2'],
-      hgg: ['hgg1', 'hgg2'],
-      owc: ['owc1', 'owc2'],
-      swc: ['swc1', 'swc2'],
-      awc: ['awc1', 'awc2'],
-      mdi: ['mdi1', 'mdi2']
+      hgc: ['TBD', 'Miracle', 'Team Liquid', 'Gen.G', 'Luna Meow', 'BTG', 'Tempo Storm', 'Team Dignitas', 'HeroesHearth Esports', 'Tempest', 'Mindfreak', 'Leftovers', 'TheOne'],
+      hgg: ['TBD', 'Spain', 'Hong Kong', 'New Zealand', 'China', 'Bulgaria', 'Brazil', 'Norway', 'Singapore'],
+      owc: ['TBD', 'South Korea', 'Finland', 'USA', 'Canada', 'China', 'Australia', 'France', 'United Kingdom'],
+      swc: ['TBD', 'Maru', 'Lambo', 'TY', 'Neeb', 'Zest', 'HeroMarine', 'sOs', 'Serral', 'Stats', 'Has', 'Dark', 'ShoWTimE', 'Classic', 'Nerchio', 'Rogue', 'SpeCial'],
+      awc: ['TBD', 'Super Frogs', 'Unitas', 'Pen and Paper', 'Reformed', 'Making a Movie', 'Cohesion Dream', 'ORDER', 'Tempo Storm', 'Method Black', 'The Gosu Crew', 'Method Orange', 'Skill Capped EU'],
+      mdi: ['TBD', "exceL's Angels", 'Free Marsy', 'Method NA', 'Method PogChamp']
     };
     const teams = allTeams[source];
     this.setState({teams});
