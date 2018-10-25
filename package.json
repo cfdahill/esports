@@ -1,6 +1,9 @@
 {
   "name": "BlizzPicks",
   "version": "1.0.0",
+  "engines": {
+    "node":"8.11.2"
+  },
   "description": "Choose your champions for Blizzard esports",
   "main": "server.js",
   "scripts": {
