@@ -1,0 +1,39 @@
+footer {
+    background-image: url("http://onlinegamecarddiensten.nl/files/BTNT_games.png");
+    background-size: 99%;
+    height: 137px;
+    margin-top: 15px;
+}
+
+.footerOverlay {
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.85);
+    height: 137px;
+    padding: 36px;
+    text-align: center;
+}
+
+.headerUL {
+    list-style: none;
+}
+
+.headerLI {
+    float: right;
+    margin: 5px;
+}
+
+header {
+    height: 65px;
+    background-image: url("https://d1ed2aak1zl3al.cloudfront.net/images/root/esports-og-image-dbff4d01577679327146c04fc9f6d5e74b6674663711a3a679eeaba0dae8ba291b3cf25d7743c96f3318ff51e16d0f13caeb5ce2fb7c40e8d8c6380c57914a7a.jpg");
+    background-position: center;
+}
+
+.headerPoints {
+    text-align: center;
+    font-size:24px;
+}
+
+.headerUserName {
+    font-size:24px;
+    text-align:center;
+}

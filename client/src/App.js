@@ -11,6 +11,7 @@ import Admin from "./components/Admin";
 import Shop from "./containers/Shop";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
+import './css/all.css'
 
 
 export default class App extends Component {
@@ -21,6 +22,7 @@ export default class App extends Component {
          <div>
           <Header />
           <Navibar />
+          <div className="bodyContainer">
           <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/admin" component={Admin} />
@@ -30,6 +32,7 @@ export default class App extends Component {
           <Route exact path="/calendar" component={Calendar} />
           <Route component={Home} />
           </Switch>
+          </div>
          </div>
         </Router>
        <Footer />

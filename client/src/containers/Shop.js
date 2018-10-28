@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import moment from 'moment-timezone';
 import { fetchPoints, fetchRewards, createPick} from '../actions';
 import {ToggleButtonGroup, ToggleButton, Button, Modal} from "react-bootstrap";
+import '../css/shop.css';
 
 class Shop extends Component {
   state={
@@ -18,7 +19,8 @@ class Shop extends Component {
     shop: [],
     hideShop: [],
     quantity: 1,
-    modalEvent:{}
+    modalEvent:{},
+    game: ''
   }
 
   componentDidMount = () => {
@@ -35,7 +37,7 @@ class Shop extends Component {
     let shop = this.state.shop;
     let hideShop = this.state.hideShop;
     return(
-      <ToggleButton value={game.game} key={game.game} onChange={ (e) => {
+      <ToggleButton className="shopButton" value={game.game} key={game.game} onChange={ (e) => {
         //For whatever reason, if this is in a different method it creates an infinate loop.
         if(game.checked){
           game.checked = false;
@@ -62,11 +64,13 @@ class Shop extends Component {
         return 1;
       return 0;
   }).map(item => (
-    <div key={item._id} value={item.game} onClick={e => {this.handleShow(e, item._id)}}>
-      <img src={`/images/${item.img}`} alt={item.name}></img>
-      <h2>{item.name}</h2>
-      <h3>{item.cost} points</h3>
-      <p>{item.description}</p>
+    <div key={item._id} className={`shopItem`} value={item.game} onClick={e => {this.handleShow(e, item._id)}}>
+      <img className="shopPic" src={`/images/${item.img}`} alt={item.name}></img>
+      <div className="shopItemDesc">
+        <h2>{item.name}</h2>
+        <h3>{item.cost} points</h3>
+        <p>{item.description}</p>
+      </div>
     </div>
   )));
 }
@@ -115,7 +119,6 @@ class Shop extends Component {
     quantity: 1,
     modalEvent:{}
     });
-    this.props.history.goBack();
   }
 
   render() {
@@ -126,17 +129,18 @@ class Shop extends Component {
         <h2>Points available: {this.props.points.lifetime - this.props.points.spent}</h2>
         <p>These products are not actually purchasable.  This is a proof of concept.  Have fun shopping for nothing!</p>
         <div>
-          <ToggleButtonGroup type="checkbox">
+          <ToggleButtonGroup type="checkbox" className="shopCheckbox">
              {this.state.value.map(game => (this.renderButton(game)))}
           </ToggleButtonGroup>
         </div>
         {this.renderItems()}
           <Modal show={this.state.show} onHide={this.handleClose}>
-            <Modal.Header closeButton>
+            <Modal.Header closeButton className={`modal${this.state.modalEvent.game}`}>
               <Modal.Title>{this.state.modalEvent.name}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-              <p>Quantity: {this.state.quantity}</p>
+            <Modal.Body className={`modal${this.state.modalEvent.game}`}>
+              <p className='modalCenter'>Quantity: {this.state.quantity}</p>
+              <div className='modalQuantity'>
               <Button value={-1} onClick={e => {this.changeQuantity(e)}}>
                 Less
               </Button>
@@ -144,8 +148,9 @@ class Shop extends Component {
               <Button value={1} onClick={e => {this.changeQuantity(e)}}>
                 More
               </Button>
+              </div>
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer className={`modal${this.state.modalEvent.game}`}>
               {totalCost <= (this.props.points.lifetime - this.props.points.spent) ? 
                 <Button onClick={() => {this.savePurchase(totalCost)}}>
                   Purchase

@@ -1,0 +1,56 @@
+.shopButton{
+    border-radius:5px !important;
+    margin:auto;
+}
+
+.shopCheckbox{
+    margin-bottom:10px;
+}
+
+.shopPic{
+    max-width:75vw;
+    margin-left: auto;
+    margin-right: auto;
+    display:block;
+}
+
+.shopItem{
+    margin-bottom:20px;
+    border: solid #fff;
+    background: #303030;
+}
+
+.shopItemDesc {
+    text-align: center;
+}
+
+.modalhs{
+    background: #d86313;
+}
+
+.modalsc{
+    background: #007fda;
+}
+
+.modalhots{
+    background: #8c38cb;
+}
+
+.modalwow{
+    background: #cc9a00;
+}
+
+.modalow{
+    background: #7f7f7f;
+}
+
+.modalQuantity{
+    display: flex;
+    position: relative;
+    left:28%;
+}
+
+.modalCenter{
+    text-align:center;
+    font-size:18px;
+}

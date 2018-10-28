@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Navbar, Nav, NavDropdown, MenuItem} from "react-bootstrap";
 import {Link} from 'react-router-dom';
+import '../css/navibar.css';
 
 
 export default class Navigation extends Component {
@@ -18,19 +19,14 @@ export default class Navigation extends Component {
           <Navbar.Collapse>
             <Nav>
             <NavDropdown eventKey={0} title="Picks" id="basic-nav-dropdown">
-                {/* <MenuItem eventKey={0.1}> */}
-                  <Link to="/picks">Picks</Link>
-                {/* </MenuItem> */}
-                {/* <MenuItem eventKey={0.2}>Shop</MenuItem> */}
-                <Link to="/shop">Shop</Link>
-                <MenuItem eventKey={0.3}>Top Scores</MenuItem>
-                <MenuItem eventKey={0.4}>Account</MenuItem>
+                <li><Link className="naviLink" to="/picks">Picks</Link></li>
+                <li><Link className="naviLink" to="/shop">Shop</Link></li>
+                <li className='deadLink'>Top Scores</li>
+                <li className='deadLink'>Account</li>
               </NavDropdown>
               <NavDropdown eventKey={1} title="eSports" id="basic-nav-dropdown">
-                  <MenuItem eventKey={1.1}>News</MenuItem>
-                  {/* <MenuItem eventKey={1.2}> */}
-                    <Link to="/calendar">Calendar</Link>
-                  {/* </MenuItem> */}
+                  <li className='deadLink'>News</li>
+                  <li><Link to="/calendar" className="naviLink">Calendar</Link></li>
               </NavDropdown>
               <NavDropdown eventKey={2} title="OverWatch" id="basic-nav-dropdown">
                   <MenuItem eventKey={2.1} href="https://playoverwatch.com/" target="blank">About</MenuItem>
@@ -60,7 +56,7 @@ export default class Navigation extends Component {
                   <MenuItem eventKey={5.3} href="https://wcs.starcraft2.com/" target="blank">StarCraft II World Championship Series (WCS)</MenuItem>
               </NavDropdown>
               {localStorage.getItem("account") === "admin" ? <Navbar.Brand>
-                  <Link to="/admin">Admin</Link>
+                  <li><Link to="/admin" className="naviLink">Admin</Link></li>
                 </Navbar.Brand> : ''}
             </Nav>
           </Navbar.Collapse>

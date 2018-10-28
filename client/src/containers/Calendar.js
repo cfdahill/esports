@@ -6,6 +6,7 @@ import FullCalendar from 'fullcalendar-reactwrapper';
 import moment from 'moment-timezone';
 import {ToggleButtonGroup, ToggleButton, Button, Modal} from "react-bootstrap";
 import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
+import '../css/calendar.css';
 
 //calendar is pretty much done, will need to come back to update info being passed to modal
 
@@ -49,7 +50,7 @@ class Calendar extends Component {
       let events = this.state.events;
       let hideEvents = this.state.hideEvents;
       return(
-        <ToggleButton value={game.game} key={game.game} onChange={ () => {
+        <ToggleButton className="calButton" value={game.game} key={game.game} onChange={ () => {
           //For whatever reason, if this is in a different method it creates an infinate loop.
           if(game.checked){
             game.checked = false;
@@ -90,14 +91,14 @@ class Calendar extends Component {
     render() {
         return(
           <div>
-            <div id="checkboxes">
+            <div className="calCheckbox">
               <ToggleButtonGroup type="checkbox">
                 {this.state.value.map(game => (this.renderButton(game)))}
               </ToggleButtonGroup>
             </div>
             <div 
                 id="calContainer"
-                style={{height: 600, width: 800}}    
+                style={{height: '50vh', width: '90vw'}}    
                 /*Style of height and width are needed here but don't need to be numbers shown, might be able to move to css file*/
             >
                 <FullCalendar

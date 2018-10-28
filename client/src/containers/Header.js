@@ -109,15 +109,19 @@ class Header extends Component {
     return(
       <header>
         {this.state.name ==="Visitor" ? 
-          <ul>
-            <li>{this.state.name}</li>   
-            <li><Link to="/login"><Button>Login</Button></Link></li>
+          <ul className="headerUL">
+            <li className="headerLI"><Link to="/login"><Button>Login</Button></Link></li>
+            <li className="headerLI"><Button onClick={this._logout}>Logout</Button></li>
+            <li className="headerUserName headerLI">{this.state.name}</li>   
           </ul> :
-          <ul>
-            <li>{this.state.name}</li>
-            <li>Total points: {this.props.points.lifetime}</li>
-            <li>Current points: {this.props.points.lifetime - this.props.points.spent}</li>
-            <li><Button onClick={this._logout}>Logout</Button></li>
+          <ul className="headerUL">
+            <li className="headerLI"><Button onClick={this._logout}>Logout</Button></li>
+            <li className="headerLI">Current points: <br></br>
+              <div className="headerPoints">{this.props.points.lifetime - this.props.points.spent}</div></li>
+            <li className="headerLI">Total points: <br></br>
+              <div className="headerPoints">{this.props.points.lifetime}</div></li>
+            <li className="headerUserName headerLI">{this.state.name}</li>   
+
           </ul>
         }
       </header>
