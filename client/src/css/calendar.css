@@ -6,3 +6,25 @@
 .calCheckbox{
     margin-bottom:10px;
 }
+
+.fc-scroller {
+  overflow-y: hidden !important;
+}
+
+.fc-day-grid-container {
+  height: 50vh !important;
+}
+
+#calendarID > .fc-view-container > .fc-basicWeek-view  > table > tbody > tr > .fc-widget-content > .fc-day-grid-container > .fc-day-grid > .fc-week {
+  height: 50vh;
+}
+
+#calendarID > .fc-view-container > .fc-basicDay-view  > table > tbody > tr > .fc-widget-content > .fc-day-grid-container > .fc-day-grid > .fc-widget-content {
+  height: 50vh;
+}
+
+
+#calContainer {
+  height: 69vh;
+  width: 90vw;
+}

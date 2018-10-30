@@ -34,12 +34,20 @@ class Calendar extends Component {
 
     //Create array of events for calendar based on the data from the reducers
     events = () => {
+      const colors = {
+        hs: '#d86313',
+        sc: '#007fda',
+        hots: '#8c38cb',
+        wow: '#cc9a00',
+        ow: '#7f7f7f'
+      }
       console.log(this.props);
         let events = this.props.events.map( event => ({
             title: `${event.league}: ${event.awayTeam} vs. ${event.homeTeam}`,
             start: moment.tz(event.date, 'America/Phoenix'),
             game: event.game,
-            watch: event.watch[0]
+            watch: event.watch[0],
+            eventColor: colors[event.game]
             }));
         this.setState({events});
     }
@@ -98,7 +106,6 @@ class Calendar extends Component {
             </div>
             <div 
                 id="calContainer"
-                style={{height: '50vh', width: '90vw'}}    
                 /*Style of height and width are needed here but don't need to be numbers shown, might be able to move to css file*/
             >
                 <FullCalendar
@@ -110,6 +117,7 @@ class Calendar extends Component {
                     }}
                     events = {this.state.events}
                     eventClick = {e => this.handleShow(e)}
+                    list = {this.state.events}
                 />
             </div> 
             <Modal show={this.state.show} onHide={this.handleClose}>

@@ -1,0 +1,94 @@
+.pickshgg {
+  background: #d86313;
+}
+
+.picksswc{
+  background: #007fda;
+}
+
+.pickshgc{
+  background: #8c38cb;
+}
+
+.picksawc{
+  background: #cc9a00;
+}
+
+.picksmdi{
+  background: #cc9a00;
+}
+
+.picksowc{
+  background: #7f7f7f;
+}
+
+.picksTitle {
+  margin: 0px;
+  margin-left: 70px;
+  text-align:center;
+  max-width: 80vw;
+}
+
+.picksPic{
+  width:23vw;
+  position: relative;
+  left: -30px;
+  top: -40px;
+}
+
+.twitch {
+  font-size: 20px;
+  margin-left: -15px;
+}
+
+.twitch > a {
+  color: black;
+  text-decoration: underline
+}
+
+.picksMatch {
+  text-align:center;
+}
+
+.picksScore {
+  text-align:center;
+}
+
+.picksLeftButton {
+  margin-left:-3vw;
+  margin-right:23vw;
+  margin-bottom: 10px;
+}
+
+.pickButton {
+  width: 75px;
+  color:white !important;
+}
+
+.picked{
+  background:#0d0dac !important;
+  box-shadow: 0px 0px 50px 22px #e5ff00;
+
+}
+
+
+.notPicked{
+  background:#920a0a !important;
+  box-shadow: 0px 0px 50px 22px black;
+  opacity: 0.5;
+}
+
+.notPicked:hover{
+  opacity: 1;
+}
+
+
+.picksDate {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.tooLate {
+  opacity: 1 !important;
+  border:none;
+}

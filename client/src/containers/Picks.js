@@ -4,7 +4,8 @@ import {fetchSchedule, fetchPicks, createPick} from '../actions';
 import _ from 'lodash';
 import moment from 'moment-timezone';
 import {Well, Grid, Row, Col, Button} from "react-bootstrap";
-import '../tempCSS.css';
+// import '../tempCSS.css';
+import '../css/picks.css';
 
 
 class Picks extends Component {
@@ -55,62 +56,60 @@ class Picks extends Component {
       const date = moment(event.date).format('MMMM D, YYYY');
       const time = moment(event.date).format('h:mm a');
       return(
-        <Well key={event._id}>
-            <h1>{event.title}</h1>
+        <Well key={event._id} className={`picksWell picks${event.league}`}>
+            <h1 className='picksTitle'>{event.title}</h1>
             <Grid>
             <Row>
-              <Col xs={3}>{event.league} LOGO</Col>
-              <Col xs={6}>
+              <Col xs={3}>
+                <img className="picksPic" src={`/images/${event.league}.png`} alt={`${event.league} logo`}></img>
+                <p className='twitch'>Watch: <a href={event.watch[0]} target="blank">Twitch</a></p>
+              </Col>
+              <Col xs={9}>
                 <Row>
-                  <h2>{event.awayTeam} vs {event.homeTeam}</h2>
+                  <h2 className='picksMatch'>{`${event.awayTeam} vs ${event.homeTeam}`}</h2>
                 </Row>
-                {/* Uncomment out this part once you are ready to remove buttons of previous events
-                and you actually need to change it to being past current start time otherwise people can pick while the game is ongoing */}
-                    {/* {((event.homeScore === 3) || (event.awayScore ===3 )) ?
+                <Row>
+                        <p className='picksScore'>{event.awayScore} - {event.homeScore}</p>
+                </Row>
+                    {moment().isAfter(event.date) ?
                       <Row>
-                      <Col xs={2}>
-                        <div className={pick === event.awayTeam ? `picked` : `notPicked`}>
-                          awayLogo
-                        </div>
-                      </Col>
-                      <Col xs={2}>
-                        {event.awayScore} - {event.homeScore}
-                      </Col>
-                      <Col xs={2}>
-                        <div className={pick === event.homeTeam ? `picked` : `notPicked`}>
-                          homeLogo
-                        </div>
-                      </Col>
-                      </Row>
-                    : */}
-                      <Row>
-                      <Col xs={2}>
-                        <Button 
-                          type="submit" 
-                          className={pick === event.awayTeam ? `picked` : `notPicked`}
-                          onClick={() => {this.savePick(event.awayTeam, event)}}
-                        >
-                          awayLogo
+                      <Col className={pick === event.awayTeam ? `pickedDiv picksLeftButton` : `notPickedDiv picksLeftButton`} xs={2}>
+                        <Button className={pick === event.awayTeam ? `picked pickButton tooLate` : `tooLate pickButton notPicked`}>
+                          {event.awayTeam}
                         </Button>
                       </Col>
-                      <Col xs={2}>
-                        {event.awayScore} - {event.homeScore}
+                      <Col xs={2} className={pick === event.homeTeam ? `pickedDiv` : `notPickedDiv`}>
+                        <Button className={pick === event.homeTeam ? `picked pickButton tooLate` : `tooLate pickButton notPicked`}>
+                          {event.homeTeam}
+                        </Button>
                       </Col>
-                      <Col xs={2}>
+                      </Row>
+                    : 
+                      <Row>
+                      <Col className={pick === event.awayTeam ? `pickedDiv picksLeftButton` : `notPickedDiv picksLeftButton`} xs={2}>
+                        <Button 
+                          type="submit" 
+                          className={pick === event.awayTeam ? `picked pickButton` : `notPicked pickButton`}
+                          onClick={() => {this.savePick(event.awayTeam, event)}}
+                        >
+                          {event.awayTeam}
+                        </Button>
+                      </Col>
+                      <Col xs={2} className={pick === event.homeTeam ? `pickedDiv` : `notPickedDiv`}>
                         <Button 
                             type="submit" 
-                            className={pick === event.homeTeam ? `picked` : `notPicked`}
+                            className={pick === event.homeTeam ? `picked pickButton` : `notPicked pickButton`}
                             onClick={() => {this.savePick(event.homeTeam, event)}}
                           >
-                            homeLogo
+                            {event.homeTeam}
                           </Button>
                       </Col>
                     </Row>
-                <Row>
+                    }
+                <Row className='picksDate'>
                   {time}, {date}
                 </Row>
               </Col>
-              <Col xs={3}> Watch: <a href={event.watch[0]} target="blank">Twitch</a></Col>
             </Row>
             </Grid>
           </Well>
