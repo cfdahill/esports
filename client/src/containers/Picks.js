@@ -73,13 +73,13 @@ class Picks extends Component {
                 </Row>
                     {moment().isAfter(event.date) ?
                       <Row>
-                      <Col className={pick === event.awayTeam ? `pickedDiv picksLeftButton` : `notPickedDiv picksLeftButton`} xs={2}>
-                        <Button className={pick === event.awayTeam ? `picked pickButton tooLate` : `tooLate pickButton notPicked`}>
+                      <Col className={pick === event.awayTeam ? `pickedDiv picksLeftButton tooLate` : `tooLate notPickedDiv picksLeftButton`} xs={2}>
+                        <Button className={pick === event.awayTeam ? `picked pickButton` : `pickButton notPicked`}>
                           {event.awayTeam}
                         </Button>
                       </Col>
-                      <Col xs={2} className={pick === event.homeTeam ? `pickedDiv` : `notPickedDiv`}>
-                        <Button className={pick === event.homeTeam ? `picked pickButton tooLate` : `tooLate pickButton notPicked`}>
+                      <Col xs={2} className={pick === event.homeTeam ? `pickedDiv tooLate` : `tooLate notPickedDiv`}>
+                        <Button className={pick === event.homeTeam ? `picked pickButton` : `pickButton notPicked`}>
                           {event.homeTeam}
                         </Button>
                       </Col>
