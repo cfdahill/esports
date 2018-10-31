@@ -1,18 +1,37 @@
+/* buttons */
 .calButton{
     border-radius:5px !important;
     margin:3px;
+    color:white;
 }
 
+.calhs {
+  background: #d86313;
+}
+
+.calsc{
+  background: #007fda;
+}
+
+.calhots{
+  background: #8c38cb;
+}
+
+.calwow{
+  background: #cc9a00;
+}
+
+.calow{
+  background: #7f7f7f;
+}
+
+/* calendar */
 .calCheckbox{
     margin-bottom:10px;
 }
 
-.fc-scroller {
-  overflow-y: hidden !important;
-}
-
 .fc-day-grid-container {
-  height: 50vh !important;
+  height: 42vh !important;
 }
 
 #calendarID > .fc-view-container > .fc-basicWeek-view  > table > tbody > tr > .fc-widget-content > .fc-day-grid-container > .fc-day-grid > .fc-week {
@@ -27,4 +46,38 @@
 #calContainer {
   height: 69vh;
   width: 90vw;
+}
+
+.fc-today {
+  background: #9999c7 !important;
+}
+
+/* modal */
+.calhgg {
+  background: #d86313;
+}
+
+.calswc{
+  background: #007fda;
+}
+
+.calhgc{
+  background: #8c38cb;
+}
+
+.calawc{
+  background: #cc9a00;
+}
+
+.calmdi{
+  background: #cc9a00;
+}
+
+.calowc{
+  background: #7f7f7f;
+}
+
+.cala {
+  color: black;
+  text-decoration: underline
 }
