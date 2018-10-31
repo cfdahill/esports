@@ -4,7 +4,7 @@ import {Button} from "react-bootstrap";
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {fetchSchedule, fetchPicks, fetchPoints, createPick} from '../actions';
-
+import '../css/footerHeader.css'
 
 class Header extends Component {
   //once logging in works, header will detect if logged in.  If logged in, show name, points and logout button; else show Guest, login button
@@ -106,7 +106,7 @@ class Header extends Component {
         {this.state.name ==="Visitor" ? 
           <ul className="headerUL">
             <li className="headerLI"><Link to="/login"><Button>Login</Button></Link></li>
-            <li className="headerLI"><Button onClick={this._logout}>Logout</Button></li>
+            <li className="headerLI"><Link to="/createaccount"><Button>New User</Button></Link></li>
             <li className="headerUserName headerLI">{this.state.name}</li>   
           </ul> :
           <ul className="headerUL">

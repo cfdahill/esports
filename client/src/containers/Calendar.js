@@ -34,14 +34,6 @@ class Calendar extends Component {
 
     //Create array of events for calendar based on the data from the reducers
     events = () => {
-      const colors = {
-        hgg: '#d86313',
-        swc: '#007fda',
-        hgc: '#8c38cb',
-        mdi: '#cc9a00',
-        awc: '#cc9a00',
-        owc: '#7f7f7f'
-      }
         let events = this.props.events.map( event => ({
             title: `${event.league.toUpperCase()}: ${event.awayTeam} vs. ${event.homeTeam}`,
             start: moment.tz(event.date, 'America/Phoenix'),
@@ -118,6 +110,7 @@ class Calendar extends Component {
                     events = {this.state.events}
                     eventClick = {e => this.handleShow(e)}
                     list = {this.state.events}
+                    eventLimit = {2}
                 />
             </div> 
             <Modal show={this.state.show} onHide={this.handleClose}>

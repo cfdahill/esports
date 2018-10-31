@@ -4,6 +4,7 @@ import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import {SplitButton, MenuItem, FormGroup, FormControl, ControlLabel, Form, Radio, Button} from "react-bootstrap";
 import {fetchSchedule, updateSchedule, createSchedule} from '../actions';
+import '../css/admin.css'
 
 class CreateMatch extends Component {
   state = {
