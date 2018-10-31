@@ -106,7 +106,7 @@ class Header extends Component {
         {this.state.name ==="Visitor" ? 
           <ul className="headerUL">
             <li className="headerLI"><Link to="/login"><Button>Login</Button></Link></li>
-            <li className="headerLI"><Button onClick={this._logout}>Logout</Button></li>
+            <li className="headerLI"><Link to='/createaccount'><Button>New User</Button></Link></li>
             <li className="headerUserName headerLI">{this.state.name}</li>   
           </ul> :
           <ul className="headerUL">
